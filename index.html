@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Habit RPG</title>
+  <meta name="description" content="A gamified habit tracker. Build your real-life RPG character.">
+
+  <meta name="theme-color" content="#0B0F1A">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Habit RPG">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <!-- ===== Header: level + XP bar ===== -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="level-badge" id="levelBadge" style="--ring: 0%">
+        <div class="level-badge-core">
+          <span class="level-num" id="levelNum">1</span>
+          <span class="level-label">LVL</span>
+        </div>
+      </div>
+      <div class="header-main">
+        <div class="header-title-row">
+          <h1 class="app-title">Habit&nbsp;RPG</h1>
+          <span class="xp-total" id="xpTotal">0 XP total</span>
+        </div>
+        <div class="xp-bar" role="progressbar" aria-label="XP progress to next level"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="xpBar">
+          <div class="xp-bar-fill" id="xpBarFill" style="width:0%"></div>
+          <div class="xp-bar-segments" aria-hidden="true"></div>
+        </div>
+        <div class="xp-text" id="xpText">0 / 100 XP to Level 2</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+
+    <!-- ===== Identity ===== -->
+    <section class="card identity-card" id="identityCard" aria-labelledby="identityTitle">
+      <h2 class="card-title" id="identityTitle">Who are you becoming?</h2>
+      <div id="identityView">
+        <p class="identity-text is-empty" id="identityText">Tap to define your identity&hellip;</p>
+      </div>
+      <div id="identityEdit" hidden>
+        <textarea id="identityInput" class="field identity-input" rows="3" maxlength="280"
+          placeholder="I am becoming disciplined, strong, focused, and skilled."></textarea>
+        <div class="row-end">
+          <button type="button" class="btn btn-ghost" id="identityCancelBtn">Cancel</button>
+          <button type="button" class="btn btn-primary" id="identitySaveBtn">Save</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Daily quote ===== -->
+    <section class="card quote-card" aria-labelledby="quoteTitle">
+      <h2 class="card-title" id="quoteTitle">Daily Quote</h2>
+      <blockquote class="quote-text" id="quoteText"></blockquote>
+      <p class="quote-author" id="quoteAuthor"></p>
+    </section>
+
+    <!-- ===== Latin saying ===== -->
+    <section class="card latin-card" aria-labelledby="latinTitle">
+      <h2 class="card-title" id="latinTitle">Latin Saying</h2>
+      <p class="latin-phrase" id="latinPhrase"></p>
+      <p class="latin-meaning" id="latinMeaning"></p>
+    </section>
+
+    <!-- ===== Stats dashboard ===== -->
+    <section class="stats-grid" aria-label="Progress stats">
+      <div class="stat-tile"><span class="stat-value" id="statCompleted">0</span><span class="stat-label">Completed</span></div>
+      <div class="stat-tile"><span class="stat-value" id="statLevel">1</span><span class="stat-label">Level</span></div>
+      <div class="stat-tile"><span class="stat-value" id="statXP">0</span><span class="stat-label">Total XP</span></div>
+      <div class="stat-tile"><span class="stat-value" id="statRate">0%</span><span class="stat-label">Today</span></div>
+      <div class="stat-tile"><span class="stat-value" id="statActive">0</span><span class="stat-label">Habits</span></div>
+      <div class="stat-tile"><span class="stat-value" id="statBestStreak">0</span><span class="stat-label">Best Streak</span></div>
+    </section>
+
+    <!-- ===== Frequency tabs ===== -->
+    <nav class="tabs" role="tablist" aria-label="Habit frequency">
+      <button class="tab is-active" role="tab" aria-selected="true" id="tab-daily" data-tab="daily">
+        Daily <span class="tab-count" id="countDaily"></span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" id="tab-weekly" data-tab="weekly">
+        Weekly <span class="tab-count" id="countWeekly"></span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" id="tab-monthly" data-tab="monthly">
+        Monthly <span class="tab-count" id="countMonthly"></span>
+      </button>
+    </nav>
+
+    <!-- ===== Habit lists ===== -->
+    <section class="habit-panel" data-frequency="daily" role="tabpanel" aria-labelledby="tab-daily">
+      <ul class="habit-list" id="listDaily"></ul>
+      <div class="empty-state" id="emptyDaily" hidden>
+        <p class="empty-title">No daily quests yet</p>
+        <p class="empty-hint">Forge your first daily habit with the + button.</p>
+      </div>
+    </section>
+
+    <section class="habit-panel" data-frequency="weekly" role="tabpanel" aria-labelledby="tab-weekly" hidden>
+      <ul class="habit-list" id="listWeekly"></ul>
+      <div class="empty-state" id="emptyWeekly" hidden>
+        <p class="empty-title">No weekly quests yet</p>
+        <p class="empty-hint">Weekly habits reset every Monday.</p>
+      </div>
+    </section>
+
+    <section class="habit-panel" data-frequency="monthly" role="tabpanel" aria-labelledby="tab-monthly" hidden>
+      <ul class="habit-list" id="listMonthly"></ul>
+      <div class="empty-state" id="emptyMonthly" hidden>
+        <p class="empty-title">No monthly quests yet</p>
+        <p class="empty-hint">Monthly habits reset on the 1st of each month.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Add habit button ===== -->
+  <button type="button" class="fab" id="addHabitBtn" aria-label="Add habit">
+    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+      <path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <!-- ===== Habit create/edit modal ===== -->
+  <div class="modal-backdrop" id="habitModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h2 class="modal-title" id="modalTitle">New Habit</h2>
+      <form id="habitForm" novalidate>
+        <label class="field-label" for="habitName">Habit name</label>
+        <input class="field" type="text" id="habitName" maxlength="60" autocomplete="off"
+               placeholder="e.g. Read 20 pages" required>
+
+        <div class="field-grid">
+          <div>
+            <label class="field-label" for="habitCategory">Category</label>
+            <select class="field" id="habitCategory">
+              <option value="body">Body</option>
+              <option value="mind">Mind</option>
+              <option value="discipline">Discipline</option>
+              <option value="learning">Learning</option>
+              <option value="health">Health</option>
+              <option value="skill">Skill</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label" for="habitFrequency">Frequency</label>
+            <select class="field" id="habitFrequency">
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="field-label" for="habitXP">XP reward</label>
+        <input class="field" type="number" id="habitXP" min="1" max="1000" step="1" inputmode="numeric" value="10">
+
+        <label class="field-label" for="habitNote">Why this habit? <span class="field-optional">(optional)</span></label>
+        <textarea class="field" id="habitNote" rows="2" maxlength="140"
+          placeholder="How does this shape who you're becoming?"></textarea>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-danger" id="deleteHabitBtn" hidden>Delete</button>
+          <span class="modal-actions-spacer"></span>
+          <button type="button" class="btn btn-ghost" id="cancelHabitBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveHabitBtn">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== Level-up overlay ===== -->
+  <div class="levelup-overlay" id="levelUpOverlay" hidden>
+    <div class="levelup-burst" id="levelUpBurst" aria-hidden="true"></div>
+    <div class="levelup-content">
+      <div class="levelup-ring" aria-hidden="true"></div>
+      <p class="levelup-label">Level Up</p>
+      <p class="levelup-level" id="levelUpLevel">2</p>
+      <p class="levelup-sub">Your character grows stronger.</p>
+    </div>
+  </div>
+
+  <!-- ===== XP toast root ===== -->
+  <div class="toast-root" id="toastRoot" aria-live="polite"></div>
+
+  <script src="js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('service-worker.js').catch(function () {});
+      });
+    }
+  </script>
+</body>
+</html>
