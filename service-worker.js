@@ -1,12 +1,14 @@
 /* Habit RPG service worker — cache-first with network fallback */
-var CACHE_NAME = 'habit-rpg-cache-v3';
+var CACHE_NAME = 'habit-rpg-cache-v7';
 
 var CORE_ASSETS = [
   './',
   './index.html',
   './manifest.json',
   './css/app.css',
+  './js/theme-manager.js',
   './js/app.js',
+  './assets/themes/voxel-world.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-512-maskable.png'
