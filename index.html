@@ -1,7 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="default">
+<html lang="en" data-theme="voxel-world">
 <head>
   <meta charset="UTF-8">
+  <script>
+    /* Restore the saved theme before any paint to avoid a flash. */
+    (function () {
+      try {
+        var KNOWN = ['voxel-world','blue-ember','abyssal-athlete','midnight-virtuoso',
+          'scholars-observatory','roman-resolve','neon-training-lab','light-minimal','monarch'];
+        var LEGACY = { 'default': 'blue-ember', 'midnight': 'midnight-virtuoso', 'light': 'light-minimal' };
+        var id = localStorage.getItem('habitRpg.activeTheme.v1') || 'voxel-world';
+        if (LEGACY[id]) id = LEGACY[id];
+        if (id.indexOf('custom-') === 0) id = 'custom';
+        else if (KNOWN.indexOf(id) === -1) id = 'voxel-world';
+        document.documentElement.dataset.theme = id;
+      } catch (e) {}
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Habit RPG</title>
   <meta name="description" content="A gamified habit tracker. Build your real-life RPG character.">
@@ -16,6 +31,16 @@
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
   <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/themes/shared-theme-layout.css">
+  <link rel="stylesheet" href="css/themes/voxel-world.css">
+  <link rel="stylesheet" href="css/themes/blue-ember.css">
+  <link rel="stylesheet" href="css/themes/abyssal-athlete.css">
+  <link rel="stylesheet" href="css/themes/midnight-virtuoso.css">
+  <link rel="stylesheet" href="css/themes/scholars-observatory.css">
+  <link rel="stylesheet" href="css/themes/roman-resolve.css">
+  <link rel="stylesheet" href="css/themes/neon-training-lab.css">
+  <link rel="stylesheet" href="css/themes/light-minimal.css">
+  <link rel="stylesheet" href="css/themes/monarch.css">
 </head>
 <body>
   <div class="bg-glow" aria-hidden="true"></div>
@@ -39,8 +64,8 @@
                 <path d="M12 3a9 9 0 1 0 0 18h1.3a1.7 1.7 0 0 0 0-3.4h-.8a1.5 1.5 0 0 1 0-3h2.1A6.4 6.4 0 0 0 21 8.2C21 5.3 17 3 12 3Z" fill="none" stroke="currentColor" stroke-width="1.8"/>
                 <circle cx="7.5" cy="9" r="1.2" fill="currentColor"/><circle cx="10.5" cy="6.7" r="1.2" fill="currentColor"/><circle cx="14.5" cy="6.8" r="1.2" fill="currentColor"/><circle cx="17.2" cy="9.4" r="1.2" fill="currentColor"/>
               </svg>
-              <span class="voxel-badge-cube" aria-hidden="true"></span>
-              <span class="theme-shortcut-label">Voxel World</span>
+              <span class="theme-badge" aria-hidden="true"></span>
+              <span class="theme-shortcut-label" id="themeShortcutLabel">Voxel World</span>
             </button>
           </div>
         </div>
@@ -58,12 +83,8 @@
 
     <!-- ===== Identity ===== -->
     <section class="card identity-card" id="identityCard" aria-labelledby="identityTitle">
-      <span class="voxel-card-icon voxel-hero-icon" aria-hidden="true">
-        <svg viewBox="0 0 64 64"><path class="voxel-grass" d="m8 35 24-12 24 12-24 12Z"/><path class="voxel-dirt" d="m8 35 24 12v13L8 48ZM56 35 32 47v13l24-12Z"/><path class="voxel-skin" d="M24 9h18v17H24z"/><path class="voxel-shirt" d="M20 27h25v20H20z"/><path class="voxel-sword" d="m45 10 7-7 4 4-7 7-1 15-5-5Z"/></svg>
-      </span>
-      <span class="voxel-card-icon voxel-tree-icon" aria-hidden="true">
-        <svg viewBox="0 0 64 64"><path class="voxel-grass" d="m8 40 24-12 24 12-24 12Z"/><path class="voxel-dirt" d="m8 40 24 12v10L8 50ZM56 40 32 52v10l24-12Z"/><path class="voxel-trunk" d="M28 21h9v22h-9z"/><path class="voxel-leaf" d="M19 10h28v22H19zM13 18h40v12H13z"/></svg>
-      </span>
+      <span class="card-art card-art-hero" aria-hidden="true"></span>
+      <span class="card-art card-art-sigil" aria-hidden="true"></span>
       <h2 class="card-title" id="identityTitle">Who are you becoming?</h2>
       <div id="identityView">
         <p class="identity-text is-empty" id="identityText">Tap to define your identity&hellip;</p>
@@ -80,9 +101,7 @@
 
     <!-- ===== Daily quote ===== -->
     <section class="card quote-card" aria-labelledby="quoteTitle">
-      <span class="voxel-card-icon voxel-hourglass-icon" aria-hidden="true">
-        <svg viewBox="0 0 64 64"><path class="voxel-wood" d="M13 5h38v7H13zM13 52h38v7H13zM17 12h6v40h-6zM41 12h6v40h-6z"/><path class="voxel-glass" d="M24 14h16c0 10-2 14-8 18 6 4 8 8 8 18H24c0-10 2-14 8-18-6-4-8-8-8-18Z"/><path class="voxel-sand" d="m26 45 6-9 6 9Z"/></svg>
-      </span>
+      <span class="card-art card-art-quote" aria-hidden="true"></span>
       <h2 class="card-title" id="quoteTitle">Daily Quote</h2>
       <blockquote class="quote-text" id="quoteText"></blockquote>
       <p class="quote-author" id="quoteAuthor"></p>
@@ -90,9 +109,7 @@
 
     <!-- ===== Latin saying ===== -->
     <section class="card latin-card" aria-labelledby="latinTitle">
-      <span class="voxel-card-icon voxel-portal-icon" aria-hidden="true">
-        <svg viewBox="0 0 64 64"><path class="voxel-stone" d="M13 48h38v11H13zM18 37h28v12H18z"/><circle class="voxel-portal" cx="32" cy="26" r="18"/><circle class="voxel-portal-core" cx="32" cy="26" r="10"/><path class="voxel-figure" d="M29 24h6v15h-6zM20 29h24v5H20z"/></svg>
-      </span>
+      <span class="card-art card-art-saying" aria-hidden="true"></span>
       <h2 class="card-title" id="latinTitle">Latin Saying</h2>
       <p class="latin-phrase" id="latinPhrase"></p>
       <p class="latin-meaning" id="latinMeaning"></p>
@@ -100,12 +117,12 @@
 
     <!-- ===== Stats dashboard ===== -->
     <section class="stats-grid" aria-label="Progress stats">
-      <div class="stat-tile"><span class="stat-icon stat-icon-block" aria-hidden="true"><svg viewBox="0 0 32 32"><path class="icon-top" d="M16 3 29 10 16 17 3 10Z"/><path class="icon-left" d="m3 10 13 7v13L3 23Z"/><path class="icon-right" d="m29 10-13 7v13l13-7Z"/></svg></span><span class="stat-value" id="statCompleted">0</span><span class="stat-label">Completed</span></div>
-      <div class="stat-tile"><span class="stat-icon stat-icon-level" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="m16 2 14 14-14 14L2 16Z"/><path class="icon-cutout" d="m16 8 8 8-8 8-8-8Z"/></svg></span><span class="stat-value" id="statLevel">1</span><span class="stat-label">Level</span></div>
-      <div class="stat-tile"><span class="stat-icon stat-icon-xp" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="m16 2 12 7v14l-12 7-12-7V9Z"/><text x="16" y="20" text-anchor="middle">XP</text></svg></span><span class="stat-value" id="statXP">0</span><span class="stat-label">Total XP</span></div>
-      <div class="stat-tile"><span class="stat-icon stat-icon-sword" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M25 3 12 16l4 4L29 7l1-5Z"/><path class="icon-dark" d="m10 15 7 7-3 3-7-7Z"/><path d="m8 22 3 3-6 5-3-3Z"/></svg></span><span class="stat-value" id="statRate">0%</span><span class="stat-label">Today</span></div>
-      <div class="stat-tile"><span class="stat-icon stat-icon-book" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M4 5h10c2 0 3 1 3 3v20c0-2-1-3-3-3H4Z"/><path d="M28 5H18c-2 0-3 1-3 3v20c0-2 1-3 3-3h10Z"/><path class="icon-lines" d="M9 11h5M9 16h5M20 11h4M20 16h4"/></svg></span><span class="stat-value" id="statActive">0</span><span class="stat-label">Habits</span></div>
-      <div class="stat-tile"><span class="stat-icon stat-icon-trophy" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M9 4h14v8c0 6-3 9-7 9s-7-3-7-9Z"/><path class="icon-lines" d="M9 7H4v4c0 4 3 6 7 6M23 7h5v4c0 4-3 6-7 6M16 21v5M10 29h12M12 26h8"/></svg></span><span class="stat-value" id="statBestStreak">0</span><span class="stat-label">Best Streak</span></div>
+      <div class="stat-tile"><span class="stat-icon" data-icon="completed" aria-hidden="true"></span><span class="stat-value" id="statCompleted">0</span><span class="stat-label">Completed</span></div>
+      <div class="stat-tile"><span class="stat-icon" data-icon="level" aria-hidden="true"></span><span class="stat-value" id="statLevel">1</span><span class="stat-label">Level</span></div>
+      <div class="stat-tile"><span class="stat-icon" data-icon="xp" aria-hidden="true"></span><span class="stat-value" id="statXP">0</span><span class="stat-label">Total XP</span></div>
+      <div class="stat-tile"><span class="stat-icon" data-icon="today" aria-hidden="true"></span><span class="stat-value" id="statRate">0%</span><span class="stat-label">Today</span></div>
+      <div class="stat-tile"><span class="stat-icon" data-icon="habits" aria-hidden="true"></span><span class="stat-value" id="statActive">0</span><span class="stat-label">Habits</span></div>
+      <div class="stat-tile"><span class="stat-icon" data-icon="streak" aria-hidden="true"></span><span class="stat-value" id="statBestStreak">0</span><span class="stat-label">Best Streak</span></div>
     </section>
 
     <!-- ===== Frequency tabs ===== -->
@@ -125,7 +142,7 @@
     <section class="habit-panel" data-frequency="daily" role="tabpanel" aria-labelledby="tab-daily">
       <ul class="habit-list" id="listDaily"></ul>
       <div class="empty-state" id="emptyDaily" hidden>
-        <span class="voxel-empty-icon" aria-hidden="true"><svg viewBox="0 0 64 64"><path class="pack-main" d="M15 21h34v36H15z"/><path class="pack-top" d="M22 11h20v12H22z"/><path class="pack-pocket" d="M22 37h20v14H22z"/><path class="pack-strap" d="M15 25H9v23h6M49 25h6v23h-6"/><path class="pack-lock" d="M29 39h6v7h-6z"/></svg></span>
+        <span class="empty-art" aria-hidden="true"></span>
         <p class="empty-title">No daily quests yet</p>
         <p class="empty-hint">Forge your first daily habit with the + button.</p>
       </div>
@@ -134,7 +151,7 @@
     <section class="habit-panel" data-frequency="weekly" role="tabpanel" aria-labelledby="tab-weekly" hidden>
       <ul class="habit-list" id="listWeekly"></ul>
       <div class="empty-state" id="emptyWeekly" hidden>
-        <span class="voxel-empty-icon" aria-hidden="true"><svg viewBox="0 0 64 64"><path class="pack-main" d="M15 21h34v36H15z"/><path class="pack-top" d="M22 11h20v12H22z"/><path class="pack-pocket" d="M22 37h20v14H22z"/><path class="pack-strap" d="M15 25H9v23h6M49 25h6v23h-6"/><path class="pack-lock" d="M29 39h6v7h-6z"/></svg></span>
+        <span class="empty-art" aria-hidden="true"></span>
         <p class="empty-title">No weekly quests yet</p>
         <p class="empty-hint">Weekly habits reset every Monday.</p>
       </div>
@@ -143,7 +160,7 @@
     <section class="habit-panel" data-frequency="monthly" role="tabpanel" aria-labelledby="tab-monthly" hidden>
       <ul class="habit-list" id="listMonthly"></ul>
       <div class="empty-state" id="emptyMonthly" hidden>
-        <span class="voxel-empty-icon" aria-hidden="true"><svg viewBox="0 0 64 64"><path class="pack-main" d="M15 21h34v36H15z"/><path class="pack-top" d="M22 11h20v12H22z"/><path class="pack-pocket" d="M22 37h20v14H22z"/><path class="pack-strap" d="M15 25H9v23h6M49 25h6v23h-6"/><path class="pack-lock" d="M29 39h6v7h-6z"/></svg></span>
+        <span class="empty-art" aria-hidden="true"></span>
         <p class="empty-title">No monthly quests yet</p>
         <p class="empty-hint">Monthly habits reset on the 1st of each month.</p>
       </div>

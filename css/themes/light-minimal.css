@@ -1,0 +1,124 @@
+/* ==========================================================================
+   Light Minimal — bright white and soft-gray surfaces, frosted glass,
+   restrained blue/green accents, generous whitespace, soft shadows.
+   ========================================================================== */
+
+[data-theme="light-minimal"] {
+  --theme-bg: #f4f6f9;
+  --theme-bg-image: url("../../assets/themes/light-minimal/bg.svg");
+  --theme-bg-overlay: linear-gradient(rgba(255,255,255,.06), rgba(238,242,247,.16));
+  --theme-texture: none;
+  --theme-surface: #ffffff;
+  --theme-surface-raised: #fbfcfe;
+  --theme-surface-transparent: rgba(255,255,255,.86);
+  --theme-header: rgba(250,251,253,.9);
+  --theme-input: #f1f5f9;
+  --theme-text: #1d2836;
+  --theme-text-muted: #5c6b80;
+  --theme-accent: #2563eb;
+  --theme-accent-secondary: #12957f;
+  --theme-border: rgba(29,40,54,.1);
+  --theme-border-strong: rgba(37,99,235,.32);
+  --theme-shadow: 0 8px 26px rgba(33,48,71,.1);
+  --theme-glow: rgba(37,99,235,.24);
+  --theme-success: #148564;
+  --theme-danger: #d7354f;
+  --theme-xp-fill: linear-gradient(90deg, #2563eb, #0ea5e9 58%, #12957f);
+  --theme-xp: #1d6fd6;
+  --theme-on-accent: #ffffff;
+  --theme-radius: 18px;
+  --theme-radius-sm: 11px;
+  --theme-heading-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
+  --theme-body-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --art-hero: url("../../assets/themes/light-minimal/hero.svg");
+  --art-sigil: url("../../assets/themes/light-minimal/sigil.svg");
+  --art-quote: url("../../assets/themes/light-minimal/quote.svg");
+  --art-saying: url("../../assets/themes/light-minimal/saying.svg");
+  --art-empty: url("../../assets/themes/light-minimal/empty.svg");
+  --art-stat-completed: url("../../assets/themes/light-minimal/stat-completed.svg");
+  --art-stat-level: url("../../assets/themes/light-minimal/stat-level.svg");
+  --art-stat-xp: url("../../assets/themes/light-minimal/stat-xp.svg");
+  --art-stat-today: url("../../assets/themes/light-minimal/stat-today.svg");
+  --art-stat-habits: url("../../assets/themes/light-minimal/stat-habits.svg");
+  --art-stat-streak: url("../../assets/themes/light-minimal/stat-streak.svg");
+  --art-glow: drop-shadow(0 4px 10px rgba(33,48,71,.12));
+
+  --panel-texture: none;
+  --panel-fill: linear-gradient(180deg, #ffffff, #fbfcfe);
+  --panel-border: 1px solid rgba(29,40,54,.08);
+  --panel-radius: var(--theme-radius);
+  --panel-shadow: 0 10px 30px rgba(33,48,71,.08), 0 1px 3px rgba(33,48,71,.05);
+
+  --pill-border: 1px solid rgba(29,40,54,.12);
+  --pill-radius: 999px;
+  --pill-bg: rgba(255,255,255,.85);
+  --pill-ink: var(--theme-accent);
+  --pill-shadow: 0 4px 14px rgba(33,48,71,.08);
+
+  --tab-radius: 10px;
+  --tab-active-ink: #ffffff;
+  --tab-active-bg: linear-gradient(180deg, #3b76f0, #2563eb);
+  --tab-active-border: none;
+  --tab-active-glow: 0 6px 16px rgba(37,99,235,.3);
+
+  --fab-border: none;
+  --fab-bg: linear-gradient(180deg, #3b76f0, #2563eb);
+  --fab-ink: #ffffff;
+  --fab-shadow: 0 12px 28px rgba(37,99,235,.35);
+}
+
+[data-theme="light-minimal"] .bg-glow { opacity: .14; }
+
+[data-theme="light-minimal"] .card,
+[data-theme="light-minimal"] .habit-card,
+[data-theme="light-minimal"] .stat-tile {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+[data-theme="light-minimal"] .app-header {
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  backdrop-filter: blur(16px) saturate(1.1);
+  border-bottom: 1px solid rgba(29,40,54,.08);
+}
+
+[data-theme="light-minimal"] .app-title,
+[data-theme="light-minimal"] .card-title,
+[data-theme="light-minimal"] .modal-title {
+  color: var(--theme-accent);
+  -webkit-text-fill-color: currentColor;
+  background: none;
+  text-shadow: none;
+  font-weight: 700;
+}
+
+[data-theme="light-minimal"] .latin-phrase { color: var(--theme-accent); text-shadow: none; }
+[data-theme="light-minimal"] .latin-meaning { color: var(--theme-text-muted); }
+[data-theme="light-minimal"] .stat-value { color: var(--theme-text); text-shadow: none; }
+[data-theme="light-minimal"] .quote-text { color: #2a3648; }
+
+[data-theme="light-minimal"] .xp-bar {
+  background: #e6ebf2;
+  border-color: rgba(29,40,54,.1);
+  box-shadow: inset 0 2px 5px rgba(20,40,70,.12);
+}
+[data-theme="light-minimal"] .xp-bar-fill { box-shadow: none; }
+[data-theme="light-minimal"] .level-badge { box-shadow: 0 6px 18px rgba(37,99,235,.22); }
+[data-theme="light-minimal"] .level-num { text-shadow: none; }
+
+[data-theme="light-minimal"] .tabs { background: #eef1f6; border-color: rgba(29,40,54,.06); }
+[data-theme="light-minimal"] .tab { color: #5c6b80; }
+
+[data-theme="light-minimal"] .empty-state {
+  border: 1.5px dashed rgba(37,99,235,.3);
+  background-image: linear-gradient(180deg, #ffffff, #f7f9fc);
+}
+
+[data-theme="light-minimal"] .empty-hint { color: var(--theme-text-muted); }
+
+[data-theme="light-minimal"] .habit-check { border-color: #c3cedd; background: #f4f7fa; }
+[data-theme="light-minimal"] .toast { color: var(--theme-accent); text-shadow: none; box-shadow: 0 8px 24px rgba(33,48,71,.16); }
+[data-theme="light-minimal"] .card-art,
+[data-theme="light-minimal"] .stat-icon,
+[data-theme="light-minimal"] .empty-art { filter: var(--art-glow); }

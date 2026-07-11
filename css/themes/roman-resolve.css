@@ -1,0 +1,137 @@
+/* ==========================================================================
+   Roman Resolve — black stone, marble, bronze, crimson and gold. Engraved
+   square panels, column flutes, disciplined small-caps lettering.
+   ========================================================================== */
+
+[data-theme="roman-resolve"] {
+  --theme-bg: #0d0a08;
+  --theme-bg-image: url("../../assets/themes/roman-resolve/bg.svg");
+  --theme-bg-overlay: linear-gradient(180deg, rgba(13,10,8,.2), rgba(13,10,8,.5) 58%, rgba(5,4,3,.85));
+  --theme-texture: none;
+  --theme-surface: #1c1611;
+  --theme-surface-raised: #292117;
+  --theme-surface-transparent: rgba(26,20,15,.9);
+  --theme-header: rgba(10,8,6,.93);
+  --theme-input: rgba(6,5,4,.75);
+  --theme-text: #e8e2d5;
+  --theme-text-muted: #a3947c;
+  --theme-accent: #c9a227;
+  --theme-accent-secondary: #b08d57;
+  --theme-border: rgba(176,141,87,.3);
+  --theme-border-strong: rgba(201,162,39,.55);
+  --theme-shadow: 0 14px 38px rgba(0,0,0,.72), inset 0 1px 0 rgba(232,226,213,.07);
+  --theme-glow: rgba(201,162,39,.4);
+  --theme-success: #9dbb7a;
+  --theme-danger: #c25a50;
+  --theme-xp-fill: linear-gradient(90deg, #8e2f2a, #c9a227 60%, #e2c26a);
+  --theme-xp: #e2c26a;
+  --theme-on-accent: #1a1409;
+  --theme-radius: 0px;
+  --theme-radius-sm: 0px;
+  --theme-heading-font: Georgia, "Times New Roman", serif;
+  --theme-body-font: Georgia, "Times New Roman", serif;
+
+  --art-hero: url("../../assets/themes/roman-resolve/hero.svg");
+  --art-sigil: url("../../assets/themes/roman-resolve/sigil.svg");
+  --art-quote: url("../../assets/themes/roman-resolve/quote.svg");
+  --art-saying: url("../../assets/themes/roman-resolve/saying.svg");
+  --art-empty: url("../../assets/themes/roman-resolve/empty.svg");
+  --art-stat-completed: url("../../assets/themes/roman-resolve/stat-completed.svg");
+  --art-stat-level: url("../../assets/themes/roman-resolve/stat-level.svg");
+  --art-stat-xp: url("../../assets/themes/roman-resolve/stat-xp.svg");
+  --art-stat-today: url("../../assets/themes/roman-resolve/stat-today.svg");
+  --art-stat-habits: url("../../assets/themes/roman-resolve/stat-habits.svg");
+  --art-stat-streak: url("../../assets/themes/roman-resolve/stat-streak.svg");
+  --art-glow: drop-shadow(0 5px 12px rgba(0,0,0,.65));
+
+  /* stone with faint marble veining */
+  --panel-texture: linear-gradient(112deg, transparent 0 38%, rgba(232,226,213,.03) 40% 42%, transparent 44% 78%, rgba(232,226,213,.025) 80% 81%, transparent 83%);
+  --panel-fill: linear-gradient(180deg, rgba(44,35,25,.94), rgba(18,14,10,.95));
+  --panel-border: 2px solid rgba(176,141,87,.55);
+  --panel-radius: 0px;
+  --panel-shadow: var(--theme-shadow), inset 0 0 0 6px rgba(6,5,4,.55), inset 0 0 0 7px rgba(201,162,39,.3);
+
+  --pill-border: 2px solid var(--theme-accent-secondary);
+  --pill-radius: 0px;
+  --pill-bg: linear-gradient(180deg, rgba(50,40,28,.96), rgba(20,16,11,.96));
+  --pill-ink: var(--theme-accent);
+  --pill-shadow: inset 0 0 0 3px rgba(6,5,4,.6), inset 0 0 0 4px rgba(201,162,39,.35);
+
+  --tab-radius: 0px;
+  --tab-active-ink: #1a1409;
+  --tab-active-bg: linear-gradient(180deg, #e2c26a, #b08d57 75%);
+  --tab-active-border: 1px solid #e2c26a;
+  --tab-active-glow: inset 0 -3px 0 rgba(26,20,9,.45), 0 4px 14px rgba(0,0,0,.5);
+
+  --fab-border: 3px solid #c9a227;
+  --fab-radius: 6px;
+  --fab-bg: linear-gradient(180deg, #3a2e1c, #1c1611 80%);
+  --fab-ink: #e2c26a;
+  --fab-shadow: 0 0 0 5px rgba(6,5,4,.8), inset 0 0 0 2px rgba(6,5,4,.8), 0 12px 26px rgba(0,0,0,.6);
+}
+
+[data-theme="roman-resolve"] body { letter-spacing: .01em; }
+
+/* engraved double border on the smaller panels too */
+[data-theme="roman-resolve"] .stat-tile,
+[data-theme="roman-resolve"] .tabs {
+  box-shadow: var(--theme-shadow), inset 0 0 0 4px rgba(6,5,4,.55), inset 0 0 0 5px rgba(201,162,39,.28);
+}
+
+/* crimson banner stripe along the left of the identity card */
+[data-theme="roman-resolve"] .identity-card {
+  border-left: 6px solid #8e2f2a;
+}
+
+[data-theme="roman-resolve"] .app-title,
+[data-theme="roman-resolve"] .card-title,
+[data-theme="roman-resolve"] .modal-title,
+[data-theme="roman-resolve"] .empty-title,
+[data-theme="roman-resolve"] .stat-label,
+[data-theme="roman-resolve"] .tab {
+  font-variant: small-caps;
+  letter-spacing: .24em;
+}
+
+[data-theme="roman-resolve"] .app-title,
+[data-theme="roman-resolve"] .card-title,
+[data-theme="roman-resolve"] .modal-title {
+  color: var(--theme-accent);
+  -webkit-text-fill-color: currentColor;
+  background: none;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+[data-theme="roman-resolve"] .quote-text { color: #efe9db; }
+[data-theme="roman-resolve"] .latin-phrase {
+  color: var(--theme-accent);
+  letter-spacing: .22em;
+  text-shadow: none;
+}
+[data-theme="roman-resolve"] .latin-meaning { color: var(--theme-text-muted); }
+[data-theme="roman-resolve"] .identity-text { color: #efe9db; }
+[data-theme="roman-resolve"] .stat-value { color: var(--theme-accent); text-shadow: none; font-weight: 700; }
+
+[data-theme="roman-resolve"] .tabs { background: rgba(8,6,5,.92); }
+[data-theme="roman-resolve"] .tab { color: #8a7b62; }
+
+[data-theme="roman-resolve"] .empty-state {
+  border: 2px solid rgba(176,141,87,.45);
+  border-style: solid;
+  background-image: radial-gradient(60% 70% at 50% 100%, rgba(142,47,42,.25), transparent 65%),
+    linear-gradient(180deg, rgba(26,20,15,.94), rgba(10,8,6,.95));
+  box-shadow: inset 0 0 0 6px rgba(6,5,4,.55), inset 0 0 0 7px rgba(201,162,39,.3);
+}
+
+[data-theme="roman-resolve"] .empty-hint { color: var(--theme-accent-secondary); }
+
+[data-theme="roman-resolve"] .habit-check { border-radius: 0; }
+[data-theme="roman-resolve"] .level-badge {
+  border-radius: 6px;
+  box-shadow: 0 0 0 3px rgba(6,5,4,.85), 0 0 0 4px rgba(201,162,39,.4);
+}
+[data-theme="roman-resolve"] .level-badge-core { border-radius: 4px; }
+[data-theme="roman-resolve"] .xp-bar { border-radius: 0; border-color: rgba(201,162,39,.45); }
+[data-theme="roman-resolve"] .xp-bar-fill { border-radius: 0; }
+[data-theme="roman-resolve"] .btn, [data-theme="roman-resolve"] .field { border-radius: 0; }

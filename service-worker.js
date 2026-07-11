@@ -1,18 +1,36 @@
 /* Habit RPG service worker — cache-first with network fallback */
-var CACHE_NAME = 'habit-rpg-cache-v11';
+var CACHE_NAME = 'habit-rpg-cache-v12';
+
+var THEMES = [
+  'voxel-world', 'blue-ember', 'abyssal-athlete', 'midnight-virtuoso',
+  'scholars-observatory', 'roman-resolve', 'neon-training-lab',
+  'light-minimal', 'monarch'
+];
+
+var THEME_PARTS = [
+  'bg', 'hero', 'sigil', 'quote', 'saying', 'empty',
+  'stat-completed', 'stat-level', 'stat-xp', 'stat-today', 'stat-habits', 'stat-streak'
+];
 
 var CORE_ASSETS = [
   './',
   './index.html',
   './manifest.json',
   './css/app.css',
+  './css/themes/shared-theme-layout.css',
   './js/theme-manager.js',
   './js/app.js',
-  './assets/themes/voxel-world.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-512-maskable.png'
 ];
+
+THEMES.forEach(function (theme) {
+  CORE_ASSETS.push('./css/themes/' + theme + '.css');
+  THEME_PARTS.forEach(function (part) {
+    CORE_ASSETS.push('./assets/themes/' + theme + '/' + part + '.svg');
+  });
+});
 
 self.addEventListener('install', function (event) {
   event.waitUntil(
