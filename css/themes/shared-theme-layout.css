@@ -1,0 +1,281 @@
+/* ==========================================================================
+   Shared theme layout — the reference composition every theme renders.
+   Themes customize it through CSS variables and their own stylesheet:
+     --art-*        per-theme artwork (SVG url() or none)
+     --panel-*      panel skin (fill, border, radius, clip, texture, shadow)
+     --tab-active-* selected-tab treatment
+     --fab-*        add-button treatment
+   ========================================================================== */
+
+:root {
+  --layout-max: 860px;
+  --art-hero: none;
+  --art-sigil: none;
+  --art-quote: none;
+  --art-saying: none;
+  --art-empty: none;
+  --art-stat-completed: none;
+  --art-stat-level: none;
+  --art-stat-xp: none;
+  --art-stat-today: none;
+  --art-stat-habits: none;
+  --art-stat-streak: none;
+}
+
+/* ---------- page frame ---------- */
+
+.app-main {
+  width: min(100% - 24px, var(--layout-max));
+  max-width: var(--layout-max);
+  margin: 0 auto;
+  padding: clamp(10px, 1.4vw, 18px) 0
+    calc(env(safe-area-inset-bottom, 0px) + 118px);
+  gap: clamp(10px, 1.5vw, 18px);
+}
+
+.header-inner { max-width: var(--layout-max); }
+
+/* ---------- panel skin (variable-driven) ---------- */
+
+.card,
+.stat-tile,
+.tabs,
+.habit-card,
+.empty-state,
+.modal {
+  background-color: var(--panel-bg-color, transparent);
+  background-image: var(--panel-texture, none), var(--panel-fill, linear-gradient(180deg,
+    color-mix(in srgb, var(--surface-raised) 94%, transparent),
+    var(--theme-surface-transparent) 80%));
+  border: var(--panel-border, 1px solid var(--border));
+  border-radius: var(--panel-radius, var(--radius));
+  box-shadow: var(--panel-shadow, var(--theme-shadow));
+}
+
+.card, .habit-card, .empty-state, .modal {
+  clip-path: var(--panel-clip, none);
+}
+
+/* ---------- header ---------- */
+
+.header-title-row { min-width: 0; }
+.app-title { flex: 0 0 auto; }
+
+.header-actions {
+  min-width: 0;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+}
+
+.xp-total { flex: 0 0 auto; }
+
+.theme-shortcut {
+  width: auto;
+  min-width: 0;
+  max-width: 100%;
+  height: 40px;
+  gap: 8px;
+  padding: 0 12px;
+  border: var(--pill-border, 1px solid var(--border-strong));
+  border-radius: var(--pill-radius, var(--radius-sm));
+  background: var(--pill-bg, var(--theme-surface-transparent));
+  clip-path: var(--pill-clip, none);
+  color: var(--pill-ink, var(--glow));
+  box-shadow: var(--pill-shadow, 0 0 14px color-mix(in srgb, var(--theme-glow) 40%, transparent));
+}
+
+.theme-shortcut > svg { display: none; }
+
+.theme-badge {
+  display: block;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  background: var(--art-sigil) center / contain no-repeat;
+}
+
+.theme-shortcut-label {
+  display: inline;
+  min-width: 0;
+  flex: 0 1 auto;
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- cards with side artwork ---------- */
+
+.card { position: relative; overflow: hidden; }
+
+.card-art {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  background: center / contain no-repeat;
+  filter: var(--art-glow, drop-shadow(0 0 10px color-mix(in srgb, var(--theme-glow) 55%, transparent)));
+}
+
+.card > :not(.card-art) { position: relative; z-index: 1; }
+
+.identity-card {
+  min-height: clamp(116px, 19vw, 172px);
+  padding-left: clamp(96px, 16.5%, 148px);
+  padding-right: clamp(84px, 14.5%, 128px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-art-hero {
+  left: clamp(8px, 1.8%, 18px);
+  width: clamp(76px, 13%, 118px);
+  height: clamp(76px, 13%, 118px);
+  background-image: var(--art-hero);
+}
+
+.card-art-sigil {
+  right: clamp(8px, 1.8%, 18px);
+  width: clamp(64px, 11%, 100px);
+  height: clamp(64px, 11%, 100px);
+  background-image: var(--art-sigil);
+}
+
+.quote-card,
+.latin-card {
+  min-height: clamp(112px, 18vw, 168px);
+  padding-right: clamp(96px, 17%, 152px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-art-quote {
+  right: clamp(10px, 2%, 22px);
+  width: clamp(74px, 12.5%, 112px);
+  height: clamp(74px, 12.5%, 112px);
+  background-image: var(--art-quote);
+}
+
+.card-art-saying {
+  right: clamp(10px, 2%, 22px);
+  width: clamp(80px, 13.5%, 122px);
+  height: clamp(80px, 13.5%, 122px);
+  background-image: var(--art-saying);
+}
+
+/* ---------- desktop-scaled typography ---------- */
+
+.card-title { font-size: clamp(11px, 1.5vw, 15px); }
+.identity-text { font-size: clamp(15px, 1.9vw, 20px); }
+.quote-text { font-size: clamp(15px, 1.9vw, 21px); }
+.latin-phrase { font-size: clamp(16px, 2vw, 22px); }
+.latin-meaning { font-size: clamp(12px, 1.4vw, 15px); }
+
+/* ---------- stats ---------- */
+
+.stats-grid { gap: clamp(8px, 1.2vw, 14px); }
+
+.stat-tile {
+  min-height: clamp(104px, 19vw, 168px);
+  padding: clamp(10px, 1.4vw, 18px) 6px;
+  justify-content: center;
+  gap: 3px;
+}
+
+.stat-icon {
+  display: block;
+  width: clamp(42px, 8.5vw, 74px);
+  height: clamp(42px, 8.5vw, 74px);
+  margin-bottom: 2px;
+  background: center / contain no-repeat;
+  filter: var(--art-glow, drop-shadow(0 0 8px color-mix(in srgb, var(--theme-glow) 50%, transparent)));
+}
+
+.stat-icon[data-icon="completed"] { background-image: var(--art-stat-completed); }
+.stat-icon[data-icon="level"] { background-image: var(--art-stat-level); }
+.stat-icon[data-icon="xp"] { background-image: var(--art-stat-xp); }
+.stat-icon[data-icon="today"] { background-image: var(--art-stat-today); }
+.stat-icon[data-icon="habits"] { background-image: var(--art-stat-habits); }
+.stat-icon[data-icon="streak"] { background-image: var(--art-stat-streak); }
+
+.stat-value { font-size: clamp(19px, 2.2vw, 27px); font-family: var(--font-heading); }
+.stat-label { font-size: clamp(9px, 1vw, 12px); }
+
+/* ---------- tabs ---------- */
+
+.tabs { min-height: clamp(50px, 6.5vw, 64px); }
+
+.tab {
+  font-family: var(--font-heading);
+  font-size: clamp(13px, 1.5vw, 16px);
+  border-radius: var(--tab-radius, 9px);
+}
+
+.tab.is-active {
+  color: var(--tab-active-ink, var(--theme-on-accent));
+  background: var(--tab-active-bg, linear-gradient(180deg, var(--glow), var(--primary)));
+  border: var(--tab-active-border, none);
+  box-shadow: var(--tab-active-glow, 0 0 16px var(--theme-glow));
+  clip-path: var(--tab-clip, none);
+}
+
+/* ---------- empty state ---------- */
+
+.empty-state {
+  position: relative;
+  min-height: clamp(200px, 32vw, 300px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-style: var(--empty-border-style, dashed);
+}
+
+.empty-art {
+  display: block;
+  width: clamp(76px, 11vw, 118px);
+  height: clamp(76px, 11vw, 118px);
+  margin-bottom: 10px;
+  background: var(--art-empty) center / contain no-repeat;
+  filter: var(--art-glow, drop-shadow(0 0 12px color-mix(in srgb, var(--theme-glow) 55%, transparent)));
+}
+
+.empty-title { font-family: var(--font-heading); font-size: clamp(15px, 1.8vw, 21px); }
+.empty-hint { font-size: clamp(12px, 1.4vw, 16px); }
+
+/* ---------- floating add button ---------- */
+
+.fab {
+  width: clamp(60px, 6.5vw, 76px);
+  height: clamp(60px, 6.5vw, 76px);
+  border: var(--fab-border, none);
+  border-radius: var(--fab-radius, 50%);
+  background: var(--fab-bg, linear-gradient(180deg, var(--glow), var(--primary)));
+  color: var(--fab-ink, var(--theme-on-accent));
+  box-shadow: var(--fab-shadow, 0 0 24px var(--theme-glow), var(--theme-shadow));
+}
+
+/* ---------- habit cards ---------- */
+
+.habit-card { min-height: 76px; }
+.habit-name { font-family: var(--font-heading); }
+
+/* ---------- narrow phones ---------- */
+
+@media (max-width: 430px) {
+  .app-main { width: calc(100% - 24px); }
+  .identity-card { padding-left: 88px; padding-right: 16px; }
+  .card-art-hero { width: 68px; height: 68px; }
+  .card-art-sigil { display: none; }
+  .quote-card, .latin-card { padding-right: 84px; }
+  .card-art-quote, .card-art-saying { width: 64px; height: 64px; right: 10px; }
+  .stat-icon { width: 40px; height: 40px; }
+  .theme-shortcut-label { font-size: 10px; }
+}

@@ -1,6 +1,7 @@
 /* ==========================================================================
    Habit RPG — centralized theme manager
-   Built-in themes, persisted switching, and IndexedDB-backed image themes.
+   Nine built-in reference themes (stylesheet-driven via data-theme),
+   persisted switching, and IndexedDB-backed custom image themes.
    ========================================================================== */
 (function () {
   'use strict';
@@ -9,149 +10,103 @@
   var DB_NAME = 'habitRpgThemes';
   var DB_VERSION = 1;
   var STORE_NAME = 'customThemes';
+  var DEFAULT_THEME = 'voxel-world';
 
+  /* Old stored ids from the previous theme system. */
+  var LEGACY_THEMES = {
+    'default': 'blue-ember',
+    'midnight': 'midnight-virtuoso',
+    'light': 'light-minimal'
+  };
+
+  /* Central registry. Visuals live in css/themes/<id>.css and
+     assets/themes/<id>/ — entries here describe and preview each theme. */
   var BUILTIN_THEMES = {
-    'default': {
-      name: 'Default',
-      description: 'The original blue and black RPG interface.',
-      preview: 'linear-gradient(145deg, #0B0F1A 0%, #141B2E 58%, #3B82F6 100%)',
-      vars: {
-        '--theme-bg': '#0B0F1A',
-        '--theme-bg-image': 'none',
-        '--theme-bg-overlay': 'linear-gradient(rgba(11,15,26,.12), rgba(11,15,26,.25))',
-        '--theme-texture': 'none',
-        '--theme-surface': '#141B2E',
-        '--theme-surface-raised': '#1A2340',
-        '--theme-surface-transparent': 'rgba(20,27,46,.88)',
-        '--theme-header': 'rgba(11,15,26,.86)',
-        '--theme-input': 'rgba(0,0,0,.35)',
-        '--theme-text': '#E7ECF5',
-        '--theme-text-muted': '#64748B',
-        '--theme-accent': '#3B82F6',
-        '--theme-accent-secondary': '#60A5FA',
-        '--theme-border': 'rgba(96,165,250,.14)',
-        '--theme-border-strong': 'rgba(96,165,250,.32)',
-        '--theme-shadow': '0 10px 30px rgba(0,0,0,.45)',
-        '--theme-glow': 'rgba(56,189,248,.62)',
-        '--theme-success': '#34D399',
-        '--theme-danger': '#F87171',
-        '--theme-xp-fill': 'linear-gradient(90deg,#3B82F6,#38BDF8 60%,#60A5FA)',
-        '--theme-xp': '#38BDF8',
-        '--theme-on-accent': '#FFFFFF',
-        '--theme-radius': '16px',
-        '--theme-radius-sm': '10px',
-        '--theme-heading-font': '-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif',
-        '--theme-body-font': '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif'
-      }
-    },
     'voxel-world': {
       name: 'Voxel World',
-      description: 'Shader-lit water, forest glass, mint glow, and pixel detail.',
-      preview: 'linear-gradient(rgba(2,24,23,.2),rgba(2,21,19,.7)),url("assets/themes/voxel-world.png") center/cover',
-      vars: {
-        '--theme-bg': '#041B1B',
-        '--theme-bg-image': 'url("../assets/themes/voxel-world.png")',
-        '--theme-bg-overlay': 'linear-gradient(180deg,rgba(1,18,22,.2),rgba(1,24,25,.55) 52%,rgba(0,13,17,.84))',
-        '--theme-texture': 'repeating-linear-gradient(0deg,transparent 0 11px,rgba(90,249,222,.022) 11px 12px),repeating-linear-gradient(90deg,transparent 0 11px,rgba(90,249,222,.022) 11px 12px)',
-        '--theme-surface': '#062F32',
-        '--theme-surface-raised': '#0B4A47',
-        '--theme-surface-transparent': 'rgba(2,38,42,.82)',
-        '--theme-header': 'rgba(1,24,29,.88)',
-        '--theme-input': 'rgba(1,24,25,.68)',
-        '--theme-text': '#F1FFF8',
-        '--theme-text-muted': '#77DCE3',
-        '--theme-accent': '#77FF8E',
-        '--theme-accent-secondary': '#5EF3FF',
-        '--theme-border': 'rgba(70,224,211,.34)',
-        '--theme-border-strong': 'rgba(100,255,226,.72)',
-        '--theme-shadow': '0 14px 38px rgba(0,10,15,.68),inset 0 1px 0 rgba(193,255,236,.12)',
-        '--theme-glow': 'rgba(88,255,174,.76)',
-        '--theme-success': '#77FF8E',
-        '--theme-danger': '#FF7D6E',
-        '--theme-xp-fill': 'linear-gradient(90deg,#22BFA2,#65F5E5 48%,#8BFF9F)',
-        '--theme-xp': '#5EF3FF',
-        '--theme-on-accent': '#032218',
-        '--theme-radius': '8px',
-        '--theme-radius-sm': '5px',
-        '--theme-heading-font': 'ui-monospace,"SFMono-Regular",Menlo,Monaco,Consolas,monospace',
-        '--theme-body-font': 'ui-monospace,"SFMono-Regular",Menlo,Monaco,Consolas,monospace'
-      }
+      description: 'Pixel-cut teal panels, glowing green borders, and a floating voxel landscape.',
+      themeColor: '#041b1b',
+      ui: { surface: 'rgba(2,38,42,.85)', border: 'rgba(100,255,226,.72)', accent: '#77FF8E', glow: 'rgba(88,255,174,.7)' }
     },
-    'midnight': {
-      name: 'Midnight',
-      description: 'Quiet charcoal surfaces with restrained violet light.',
-      preview: 'radial-gradient(circle at 70% 20%,#44308C 0,#11121A 48%,#050507 100%)',
-      vars: {
-        '--theme-bg': '#050507',
-        '--theme-bg-image': 'none',
-        '--theme-bg-overlay': 'linear-gradient(rgba(5,5,7,.15),rgba(5,5,7,.35))',
-        '--theme-texture': 'none',
-        '--theme-surface': '#111218',
-        '--theme-surface-raised': '#1A1B24',
-        '--theme-surface-transparent': 'rgba(17,18,24,.91)',
-        '--theme-header': 'rgba(5,5,7,.9)',
-        '--theme-input': 'rgba(0,0,0,.42)',
-        '--theme-text': '#F3F1FA',
-        '--theme-text-muted': '#858393',
-        '--theme-accent': '#7457E8',
-        '--theme-accent-secondary': '#A78BFA',
-        '--theme-border': 'rgba(167,139,250,.13)',
-        '--theme-border-strong': 'rgba(167,139,250,.32)',
-        '--theme-shadow': '0 12px 34px rgba(0,0,0,.62)',
-        '--theme-glow': 'rgba(124,92,246,.56)',
-        '--theme-success': '#43D6A0',
-        '--theme-danger': '#FB7185',
-        '--theme-xp-fill': 'linear-gradient(90deg,#4F46E5,#7C5CF6 60%,#A78BFA)',
-        '--theme-xp': '#A78BFA',
-        '--theme-on-accent': '#FFFFFF',
-        '--theme-radius': '14px',
-        '--theme-radius-sm': '9px',
-        '--theme-heading-font': '-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif',
-        '--theme-body-font': '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif'
-      }
+    'blue-ember': {
+      name: 'Blue Ember',
+      description: 'Forged navy steel lit by electric-blue flame and bright edge light.',
+      themeColor: '#02040c',
+      ui: { surface: 'rgba(7,17,36,.88)', border: 'rgba(120,190,255,.6)', accent: '#3F9DFF', glow: 'rgba(63,157,255,.66)' }
     },
-    'light': {
-      name: 'Light',
-      description: 'Bright neutral surfaces with crisp blue-green accents.',
-      preview: 'linear-gradient(145deg,#FFFFFF 0%,#E8EEF5 58%,#2C7BE5 100%)',
-      vars: {
-        '--theme-bg': '#EDF2F7',
-        '--theme-bg-image': 'none',
-        '--theme-bg-overlay': 'linear-gradient(rgba(255,255,255,.08),rgba(222,231,240,.2))',
-        '--theme-texture': 'none',
-        '--theme-surface': '#FFFFFF',
-        '--theme-surface-raised': '#F8FAFC',
-        '--theme-surface-transparent': 'rgba(255,255,255,.9)',
-        '--theme-header': 'rgba(248,250,252,.9)',
-        '--theme-input': '#F1F5F9',
-        '--theme-text': '#152033',
-        '--theme-text-muted': '#596579',
-        '--theme-accent': '#2563EB',
-        '--theme-accent-secondary': '#0F9D88',
-        '--theme-border': 'rgba(45,66,94,.14)',
-        '--theme-border-strong': 'rgba(37,99,235,.3)',
-        '--theme-shadow': '0 10px 28px rgba(33,48,71,.13)',
-        '--theme-glow': 'rgba(37,99,235,.3)',
-        '--theme-success': '#148564',
-        '--theme-danger': '#D7354F',
-        '--theme-xp-fill': 'linear-gradient(90deg,#2563EB,#0EA5E9 58%,#0F9D88)',
-        '--theme-xp': '#087FCE',
-        '--theme-on-accent': '#FFFFFF',
-        '--theme-radius': '16px',
-        '--theme-radius-sm': '10px',
-        '--theme-heading-font': '-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif',
-        '--theme-body-font': '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif'
-      }
+    'abyssal-athlete': {
+      name: 'Abyssal Athlete',
+      description: 'Deep-water glass, lane lines, bubbles, and cyan competitive-swimming light.',
+      themeColor: '#01121e',
+      ui: { surface: 'rgba(3,34,50,.85)', border: 'rgba(53,224,255,.55)', accent: '#35E0FF', glow: 'rgba(53,224,255,.6)' }
+    },
+    'midnight-virtuoso': {
+      name: 'Midnight Virtuoso',
+      description: 'A moonlit concert hall in black lacquer, ivory, violet, and warm gold.',
+      themeColor: '#070510',
+      ui: { surface: 'rgba(18,13,30,.9)', border: 'rgba(212,175,106,.5)', accent: '#D4AF6A', glow: 'rgba(212,175,106,.45)' }
+    },
+    'scholars-observatory': {
+      name: "Scholar's Observatory",
+      description: 'Midnight navy star maps, gold instruments, and constellation-dotted cards.',
+      themeColor: '#050a1e',
+      ui: { surface: 'rgba(12,17,42,.9)', border: 'rgba(227,184,92,.5)', accent: '#E3B85C', glow: 'rgba(154,215,255,.5)' }
+    },
+    'roman-resolve': {
+      name: 'Roman Resolve',
+      description: 'Black stone, bronze, crimson, and gold — engraved Stoic discipline.',
+      themeColor: '#0d0a08',
+      ui: { surface: 'rgba(26,20,15,.92)', border: 'rgba(201,162,39,.55)', accent: '#C9A227', glow: 'rgba(201,162,39,.4)' }
+    },
+    'neon-training-lab': {
+      name: 'Neon Training Lab',
+      description: 'Biometric HUD panels, scan lines, and cyan-lime performance energy.',
+      themeColor: '#020604',
+      ui: { surface: 'rgba(6,17,12,.9)', border: 'rgba(43,245,216,.55)', accent: '#2BF5D8', glow: 'rgba(43,245,216,.6)' }
+    },
+    'light-minimal': {
+      name: 'Light Minimal',
+      description: 'Bright white surfaces, soft shadows, and restrained blue-green accents.',
+      themeColor: '#f4f6f9',
+      ui: { surface: 'rgba(255,255,255,.92)', border: 'rgba(37,99,235,.32)', accent: '#2563EB', glow: 'rgba(37,99,235,.24)' }
+    },
+    'monarch': {
+      name: 'Monarch',
+      description: 'Black velvet, deep burgundy, and polished gold — a royal command deck.',
+      themeColor: '#0a0508',
+      ui: { surface: 'rgba(28,13,20,.92)', border: 'rgba(224,178,82,.55)', accent: '#E0B252', glow: 'rgba(224,178,82,.45)' }
     }
   };
 
+  Object.keys(BUILTIN_THEMES).forEach(function (id) {
+    BUILTIN_THEMES[id].preview =
+      'linear-gradient(rgba(2,6,10,.16), rgba(2,6,10,.44)), url("assets/themes/' + id + '/bg.svg") center/cover';
+  });
+
+  /* The inline-variable contract used by custom image themes. Built-in
+     themes never set inline vars — their stylesheets own the look. */
+  var VAR_KEYS = [
+    '--theme-bg', '--theme-bg-image', '--theme-bg-overlay', '--theme-texture',
+    '--theme-surface', '--theme-surface-raised', '--theme-surface-transparent',
+    '--theme-header', '--theme-input', '--theme-text', '--theme-text-muted',
+    '--theme-accent', '--theme-accent-secondary', '--theme-border',
+    '--theme-border-strong', '--theme-shadow', '--theme-glow', '--theme-success',
+    '--theme-danger', '--theme-xp-fill', '--theme-xp', '--theme-on-accent',
+    '--theme-radius', '--theme-radius-sm', '--theme-heading-font', '--theme-body-font'
+  ];
+
   var customThemes = [];
-  var activeThemeId = localStorage.getItem(ACTIVE_THEME_KEY) || 'default';
+  var activeThemeId = normalizeId(localStorage.getItem(ACTIVE_THEME_KEY) || DEFAULT_THEME);
   var activeImageUrl = null;
   var pendingCustom = null;
   var dbPromise = null;
 
   function $(id) { return document.getElementById(id); }
+
+  function normalizeId(id) {
+    if (LEGACY_THEMES[id]) return LEGACY_THEMES[id];
+    return id;
+  }
 
   function openDatabase() {
     if (!('indexedDB' in window)) return Promise.resolve(null);
@@ -211,33 +166,49 @@
     return null;
   }
 
-  function setVariables(vars) {
+  function clearVariables() {
     var root = document.documentElement;
-    Object.keys(BUILTIN_THEMES['default'].vars).forEach(function (key) {
-      root.style.removeProperty(key);
-    });
+    VAR_KEYS.forEach(function (key) { root.style.removeProperty(key); });
+  }
+
+  function setVariables(vars) {
+    clearVariables();
+    var root = document.documentElement;
     Object.keys(vars).forEach(function (key) { root.style.setProperty(key, vars[key]); });
   }
 
   function applyTheme(id, persist) {
-    var theme = getTheme(id) || BUILTIN_THEMES['default'];
-    id = getTheme(id) ? id : 'default';
+    id = normalizeId(id);
+    var theme = getTheme(id);
+    if (!theme) { theme = BUILTIN_THEMES[DEFAULT_THEME]; id = DEFAULT_THEME; }
     if (activeImageUrl) {
       URL.revokeObjectURL(activeImageUrl);
       activeImageUrl = null;
     }
-    var vars = Object.assign({}, theme.vars);
-    if (theme.imageBlob) {
-      activeImageUrl = URL.createObjectURL(theme.imageBlob);
-      vars['--theme-bg-image'] = 'url("' + activeImageUrl + '")';
+
+    var themeColor;
+    if (BUILTIN_THEMES[id]) {
+      /* Stylesheets own built-in themes; remove any custom inline vars. */
+      clearVariables();
+      document.documentElement.dataset.theme = id;
+      themeColor = theme.themeColor;
+    } else {
+      var vars = Object.assign({}, theme.vars);
+      if (theme.imageBlob) {
+        activeImageUrl = URL.createObjectURL(theme.imageBlob);
+        vars['--theme-bg-image'] = 'url("' + activeImageUrl + '")';
+      }
+      setVariables(vars);
+      document.documentElement.dataset.theme = 'custom';
+      themeColor = vars['--theme-bg'] || '#0B0F1A';
     }
-    setVariables(vars);
-    document.documentElement.dataset.theme = id.indexOf('custom-') === 0 ? 'custom' : id;
+
     document.documentElement.dataset.themeId = id;
     activeThemeId = id;
-    var themeColor = vars['--theme-bg'] || '#0B0F1A';
     var meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute('content', themeColor);
+    var label = $('themeShortcutLabel');
+    if (label) label.textContent = theme.name;
     if (persist !== false) localStorage.setItem(ACTIVE_THEME_KEY, id);
     renderThemeCards();
     window.dispatchEvent(new CustomEvent('habit-theme-change', { detail: { id: id, theme: theme } }));
@@ -258,8 +229,20 @@
     return null;
   }
 
+  function themeUi(theme) {
+    if (theme.ui) return theme.ui;
+    var vars = theme.vars || {};
+    return {
+      surface: vars['--theme-surface-transparent'] || 'rgba(20,27,46,.88)',
+      border: vars['--theme-border-strong'] || 'rgba(96,165,250,.32)',
+      accent: vars['--theme-accent'] || '#3B82F6',
+      glow: vars['--theme-glow'] || 'rgba(56,189,248,.62)'
+    };
+  }
+
   function buildThemeCard(id, theme, custom) {
     var selected = id === activeThemeId;
+    var ui = themeUi(theme);
     var card = makeElement('article', 'theme-card' + (selected ? ' is-selected' : ''));
     card.dataset.themeId = id;
 
@@ -269,11 +252,11 @@
       ? 'linear-gradient(rgba(2,14,18,.2),rgba(2,14,18,.68)),url("' + imageUrl + '") center/cover'
       : theme.preview;
     var miniSurface = makeElement('span', 'preview-surface');
-    miniSurface.style.background = theme.vars['--theme-surface-transparent'];
-    miniSurface.style.borderColor = theme.vars['--theme-border-strong'];
+    miniSurface.style.background = ui.surface;
+    miniSurface.style.borderColor = ui.border;
     var miniAccent = makeElement('span', 'preview-accent');
-    miniAccent.style.background = theme.vars['--theme-accent'];
-    miniAccent.style.boxShadow = '0 0 12px ' + theme.vars['--theme-glow'];
+    miniAccent.style.background = ui.accent;
+    miniAccent.style.boxShadow = '0 0 12px ' + ui.glow;
     preview.appendChild(miniSurface);
     preview.appendChild(miniAccent);
     if (selected) preview.appendChild(makeElement('span', 'selected-badge', 'Selected'));
@@ -527,7 +510,7 @@
     if (!window.confirm('Delete “' + theme.name + '”?')) return;
     removeCustomTheme(id).then(function () {
       customThemes = customThemes.filter(function (item) { return item.id !== id; });
-      if (activeThemeId === id) applyTheme('default');
+      if (activeThemeId === id) applyTheme(DEFAULT_THEME);
       else renderThemeCards();
     });
   }
@@ -553,7 +536,7 @@
   function init() {
     var requestedThemeId = activeThemeId;
     bindUI();
-    applyTheme(BUILTIN_THEMES[requestedThemeId] ? requestedThemeId : 'default', false);
+    applyTheme(BUILTIN_THEMES[requestedThemeId] ? requestedThemeId : DEFAULT_THEME, false);
     readCustomThemes().then(function (themes) {
       themes.forEach(function (theme) { delete theme.previewUrl; });
       customThemes = themes.sort(function (a, b) { return (a.createdAt || 0) - (b.createdAt || 0); });

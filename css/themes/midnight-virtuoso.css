@@ -1,0 +1,130 @@
+/* ==========================================================================
+   Midnight Virtuoso — moonlit concert hall: black lacquer, ivory, muted
+   violet, warm gold. Piano-key tabs, elegant serif ornamentation.
+   ========================================================================== */
+
+[data-theme="midnight-virtuoso"] {
+  --theme-bg: #070510;
+  --theme-bg-image: url("../../assets/themes/midnight-virtuoso/bg.svg");
+  --theme-bg-overlay: linear-gradient(180deg, rgba(7,5,16,.16), rgba(7,5,16,.5) 60%, rgba(3,2,8,.84));
+  --theme-texture: none;
+  --theme-surface: #14101f;
+  --theme-surface-raised: #1e1830;
+  --theme-surface-transparent: rgba(18,13,30,.88);
+  --theme-header: rgba(6,4,14,.92);
+  --theme-input: rgba(4,3,10,.7);
+  --theme-text: #f5f0e4;
+  --theme-text-muted: #9b8fb0;
+  --theme-accent: #d4af6a;
+  --theme-accent-secondary: #9b84c9;
+  --theme-border: rgba(212,175,106,.22);
+  --theme-border-strong: rgba(212,175,106,.5);
+  --theme-shadow: 0 16px 44px rgba(0,0,0,.72), inset 0 1px 0 rgba(245,240,228,.08);
+  --theme-glow: rgba(212,175,106,.45);
+  --theme-success: #8ccf9f;
+  --theme-danger: #e08585;
+  --theme-xp-fill: linear-gradient(90deg, #6f5a9e, #9b84c9 45%, #e8c98a);
+  --theme-xp: #e8c98a;
+  --theme-on-accent: #14101f;
+  --theme-radius: 12px;
+  --theme-radius-sm: 8px;
+  --theme-heading-font: Georgia, "Times New Roman", serif;
+  --theme-body-font: Georgia, "Palatino", serif;
+
+  --art-hero: url("../../assets/themes/midnight-virtuoso/hero.svg");
+  --art-sigil: url("../../assets/themes/midnight-virtuoso/sigil.svg");
+  --art-quote: url("../../assets/themes/midnight-virtuoso/quote.svg");
+  --art-saying: url("../../assets/themes/midnight-virtuoso/saying.svg");
+  --art-empty: url("../../assets/themes/midnight-virtuoso/empty.svg");
+  --art-stat-completed: url("../../assets/themes/midnight-virtuoso/stat-completed.svg");
+  --art-stat-level: url("../../assets/themes/midnight-virtuoso/stat-level.svg");
+  --art-stat-xp: url("../../assets/themes/midnight-virtuoso/stat-xp.svg");
+  --art-stat-today: url("../../assets/themes/midnight-virtuoso/stat-today.svg");
+  --art-stat-habits: url("../../assets/themes/midnight-virtuoso/stat-habits.svg");
+  --art-stat-streak: url("../../assets/themes/midnight-virtuoso/stat-streak.svg");
+  --art-glow: drop-shadow(0 4px 10px rgba(0,0,0,.6));
+
+  --panel-texture: linear-gradient(160deg, rgba(245,240,228,.045) 0 12%, transparent 30%);
+  --panel-fill: linear-gradient(180deg, rgba(30,24,48,.9), rgba(12,9,22,.92));
+  --panel-border: 1px solid var(--border-strong);
+  --panel-radius: var(--theme-radius);
+  --panel-shadow: var(--theme-shadow);
+
+  --pill-border: 1px solid var(--theme-accent);
+  --pill-radius: 999px;
+  --pill-bg: linear-gradient(180deg, rgba(34,26,52,.95), rgba(12,9,22,.95));
+  --pill-ink: var(--theme-accent);
+  --pill-shadow: 0 0 14px rgba(212,175,106,.3);
+
+  /* piano keys: active tab is an ivory key */
+  --tab-radius: 4px;
+  --tab-active-ink: #14101f;
+  --tab-active-bg: linear-gradient(180deg, #fbf6e8, #e8dfc8);
+  --tab-active-border: 1px solid #d4af6a;
+  --tab-active-glow: 0 4px 14px rgba(0,0,0,.5), inset 0 -3px 0 #c9b98f;
+
+  --fab-border: 1px solid #e8c98a;
+  --fab-bg: radial-gradient(circle at 44% 32%, #f0d9a8, #d4af6a 55%, #8a6c38);
+  --fab-ink: #14101f;
+  --fab-shadow: 0 0 0 5px rgba(8,6,16,.85), 0 10px 26px rgba(0,0,0,.6), 0 0 22px rgba(212,175,106,.4);
+}
+
+/* gold hairline rule above card titles */
+[data-theme="midnight-virtuoso"] .card::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  left: 16px;
+  right: 16px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,106,.55), transparent);
+  pointer-events: none;
+}
+
+[data-theme="midnight-virtuoso"] .app-title,
+[data-theme="midnight-virtuoso"] .card-title,
+[data-theme="midnight-virtuoso"] .modal-title {
+  color: var(--theme-accent);
+  -webkit-text-fill-color: currentColor;
+  background: none;
+  letter-spacing: .22em;
+  font-weight: 600;
+  text-shadow: none;
+}
+
+[data-theme="midnight-virtuoso"] .quote-text { font-size: clamp(16px, 2vw, 22px); }
+[data-theme="midnight-virtuoso"] .latin-phrase {
+  color: #f5f0e4;
+  letter-spacing: .18em;
+  font-weight: 600;
+  text-shadow: none;
+}
+[data-theme="midnight-virtuoso"] .latin-meaning { color: var(--theme-accent-secondary); }
+[data-theme="midnight-virtuoso"] .identity-text { color: #efe6d2; font-style: italic; font-weight: 500; }
+
+[data-theme="midnight-virtuoso"] .stat-value { color: var(--theme-xp); text-shadow: none; }
+[data-theme="midnight-virtuoso"] .stat-label { letter-spacing: .2em; }
+
+/* tab strip reads as a keyboard */
+[data-theme="midnight-virtuoso"] .tabs {
+  background: linear-gradient(180deg, #0c0916, #050308);
+  border-bottom: 3px solid #d4af6a;
+  gap: 6px;
+}
+[data-theme="midnight-virtuoso"] .tab { color: #8f84a8; border: 1px solid rgba(155,132,201,.18); }
+
+[data-theme="midnight-virtuoso"] .empty-state {
+  border-style: solid;
+  background-image: radial-gradient(60% 70% at 50% 0%, rgba(155,132,201,.16), transparent 65%),
+    linear-gradient(180deg, rgba(18,13,30,.94), rgba(6,4,12,.95));
+}
+
+[data-theme="midnight-virtuoso"] .empty-title { font-style: italic; font-weight: 600; }
+[data-theme="midnight-virtuoso"] .empty-hint { color: var(--theme-accent); }
+
+[data-theme="midnight-virtuoso"] .fab svg { transform: scale(.92); }
+[data-theme="midnight-virtuoso"] .level-badge {
+  box-shadow: 0 0 0 3px rgba(8,6,16,.9), 0 0 16px rgba(212,175,106,.4);
+}
+[data-theme="midnight-virtuoso"] .xp-bar { border-color: rgba(212,175,106,.4); }

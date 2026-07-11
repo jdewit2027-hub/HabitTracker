@@ -1,0 +1,124 @@
+/* ==========================================================================
+   Neon Training Lab — biometric HUD panels on black: cyan, lime, violet,
+   controlled magenta. Corner brackets, scan lines, energy meters.
+   ========================================================================== */
+
+[data-theme="neon-training-lab"] {
+  --theme-bg: #020604;
+  --theme-bg-image: url("../../assets/themes/neon-training-lab/bg.svg");
+  --theme-bg-overlay: linear-gradient(180deg, rgba(2,6,4,.2), rgba(2,6,4,.5) 58%, rgba(1,3,2,.85));
+  --theme-texture: repeating-linear-gradient(0deg, transparent 0 3px, rgba(43,245,216,.012) 3px 4px);
+  --theme-surface: #07120d;
+  --theme-surface-raised: #0b1f16;
+  --theme-surface-transparent: rgba(6,17,12,.88);
+  --theme-header: rgba(2,7,5,.93);
+  --theme-input: rgba(1,5,3,.75);
+  --theme-text: #e9fff6;
+  --theme-text-muted: #5faa93;
+  --theme-accent: #2bf5d8;
+  --theme-accent-secondary: #b7f542;
+  --theme-border: rgba(43,245,216,.22);
+  --theme-border-strong: rgba(43,245,216,.55);
+  --theme-shadow: 0 14px 40px rgba(0,3,2,.7);
+  --theme-glow: rgba(43,245,216,.6);
+  --theme-success: #b7f542;
+  --theme-danger: #ff4fd8;
+  --theme-xp-fill: linear-gradient(90deg, #0c8f78, #2bf5d8 55%, #b7f542);
+  --theme-xp: #2bf5d8;
+  --theme-on-accent: #02120c;
+  --theme-radius: 8px;
+  --theme-radius-sm: 5px;
+  --theme-heading-font: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  --theme-body-font: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+
+  --art-hero: url("../../assets/themes/neon-training-lab/hero.svg");
+  --art-sigil: url("../../assets/themes/neon-training-lab/sigil.svg");
+  --art-quote: url("../../assets/themes/neon-training-lab/quote.svg");
+  --art-saying: url("../../assets/themes/neon-training-lab/saying.svg");
+  --art-empty: url("../../assets/themes/neon-training-lab/empty.svg");
+  --art-stat-completed: url("../../assets/themes/neon-training-lab/stat-completed.svg");
+  --art-stat-level: url("../../assets/themes/neon-training-lab/stat-level.svg");
+  --art-stat-xp: url("../../assets/themes/neon-training-lab/stat-xp.svg");
+  --art-stat-today: url("../../assets/themes/neon-training-lab/stat-today.svg");
+  --art-stat-habits: url("../../assets/themes/neon-training-lab/stat-habits.svg");
+  --art-stat-streak: url("../../assets/themes/neon-training-lab/stat-streak.svg");
+
+  /* scanlines inside every panel */
+  --panel-texture: repeating-linear-gradient(0deg, transparent 0 5px, rgba(43,245,216,.03) 5px 6px);
+  --panel-fill: linear-gradient(180deg, rgba(10,30,21,.9), rgba(3,10,7,.93));
+  --panel-border: 1px solid rgba(43,245,216,.4);
+  --panel-radius: 6px;
+  --panel-shadow: var(--theme-shadow), inset 0 0 22px rgba(43,245,216,.05);
+
+  --pill-border: 1px solid var(--theme-accent);
+  --pill-radius: 4px;
+  --pill-bg: linear-gradient(180deg, rgba(9,32,23,.95), rgba(2,9,6,.95));
+  --pill-ink: var(--theme-accent);
+  --pill-shadow: 0 0 16px var(--theme-glow);
+
+  --tab-radius: 4px;
+  --tab-active-ink: #02120c;
+  --tab-active-bg: linear-gradient(90deg, #2bf5d8, #b7f542);
+  --tab-active-border: none;
+  --tab-active-glow: 0 0 20px var(--theme-glow), 0 0 8px rgba(183,245,66,.5);
+
+  --fab-border: 2px solid #2bf5d8;
+  --fab-bg: radial-gradient(circle at 46% 34%, #103d2f, #05130d 78%);
+  --fab-ink: #2bf5d8;
+  --fab-shadow: 0 0 0 4px rgba(1,5,3,.85), 0 0 26px rgba(43,245,216,.75), inset 0 0 14px rgba(43,245,216,.28);
+}
+
+[data-theme="neon-training-lab"] body { letter-spacing: .02em; }
+
+/* HUD corner brackets on cards */
+[data-theme="neon-training-lab"] .card::before,
+[data-theme="neon-training-lab"] .empty-state::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 5px;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, var(--theme-accent) 0 16px, transparent 16px calc(100% - 16px), var(--theme-accent) calc(100% - 16px)) top / 100% 2px no-repeat,
+    linear-gradient(90deg, var(--theme-accent-secondary) 0 16px, transparent 16px calc(100% - 16px), var(--theme-accent-secondary) calc(100% - 16px)) bottom / 100% 2px no-repeat,
+    linear-gradient(180deg, var(--theme-accent) 0 16px, transparent 16px calc(100% - 16px), var(--theme-accent-secondary) calc(100% - 16px)) left / 2px 100% no-repeat,
+    linear-gradient(180deg, var(--theme-accent) 0 16px, transparent 16px calc(100% - 16px), var(--theme-accent-secondary) calc(100% - 16px)) right / 2px 100% no-repeat;
+  opacity: .7;
+}
+
+[data-theme="neon-training-lab"] .app-title,
+[data-theme="neon-training-lab"] .card-title,
+[data-theme="neon-training-lab"] .modal-title {
+  color: var(--theme-accent);
+  -webkit-text-fill-color: currentColor;
+  background: none;
+  text-shadow: 0 0 12px var(--theme-glow);
+}
+
+[data-theme="neon-training-lab"] .card-title::before { content: "// "; color: var(--theme-accent-secondary); }
+
+[data-theme="neon-training-lab"] .quote-text { font-style: normal; font-family: var(--font-heading); }
+[data-theme="neon-training-lab"] .latin-phrase { color: var(--theme-accent-secondary); text-shadow: 0 0 12px rgba(183,245,66,.5); }
+[data-theme="neon-training-lab"] .latin-meaning { font-style: normal; color: var(--theme-text-muted); }
+[data-theme="neon-training-lab"] .stat-value { color: var(--theme-accent); }
+[data-theme="neon-training-lab"] .stat-label { color: var(--theme-accent-secondary); }
+
+/* energy-meter XP bar */
+[data-theme="neon-training-lab"] .xp-bar { border-radius: 3px; border-color: rgba(43,245,216,.5); }
+[data-theme="neon-training-lab"] .xp-bar-fill { border-radius: 2px; }
+[data-theme="neon-training-lab"] .xp-bar-segments {
+  background: repeating-linear-gradient(90deg, transparent 0, transparent calc(5% - 2px), rgba(1,5,3,.9) calc(5% - 2px), rgba(1,5,3,.9) 5%);
+}
+
+[data-theme="neon-training-lab"] .tabs { background: rgba(1,6,4,.92); }
+[data-theme="neon-training-lab"] .tab { color: #3f7a68; }
+
+[data-theme="neon-training-lab"] .empty-state {
+  border-style: solid;
+  background-image: radial-gradient(70% 90% at 50% 100%, rgba(138,107,255,.14), transparent 65%),
+    linear-gradient(180deg, rgba(6,17,12,.92), rgba(1,5,3,.94));
+}
+
+[data-theme="neon-training-lab"] .empty-hint { color: var(--theme-accent-secondary); }
+[data-theme="neon-training-lab"] .habit-check { border-radius: 6px; }
+[data-theme="neon-training-lab"] .level-badge { box-shadow: 0 0 0 3px rgba(1,5,3,.9), 0 0 18px var(--theme-glow); }
