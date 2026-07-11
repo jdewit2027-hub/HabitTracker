@@ -1,5 +1,5 @@
 /* Habit RPG service worker — cache-first with network fallback */
-var CACHE_NAME = 'habit-rpg-cache-v8';
+var CACHE_NAME = 'habit-rpg-cache-v9';
 
 var CORE_ASSETS = [
   './',

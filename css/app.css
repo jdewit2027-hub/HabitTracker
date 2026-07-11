@@ -1181,8 +1181,8 @@ textarea.field { resize: vertical; }
 }
 
 [data-theme="voxel-world"] .app-main {
-  gap: 12px;
-  padding-top: 14px;
+  gap: 10px;
+  padding-top: 8px;
 }
 
 [data-theme="voxel-world"] .app-header,
@@ -1203,10 +1203,25 @@ textarea.field { resize: vertical; }
 }
 
 [data-theme="voxel-world"] .app-header {
-  border-bottom: 1px solid var(--border-strong);
+  position: relative;
+  min-height: 62px;
+  padding: 14px 16px 0;
+  border: 0;
+  background: transparent;
   clip-path: none;
   filter: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
+
+[data-theme="voxel-world"] .header-inner { justify-content: flex-end; }
+[data-theme="voxel-world"] .level-badge,
+[data-theme="voxel-world"] .app-title,
+[data-theme="voxel-world"] .xp-total,
+[data-theme="voxel-world"] .xp-bar,
+[data-theme="voxel-world"] .xp-text { display: none; }
+[data-theme="voxel-world"] .header-main { flex: 0 0 100%; }
+[data-theme="voxel-world"] .header-title-row { justify-content: flex-end; margin: 0; }
 
 [data-theme="voxel-world"] .app-title,
 [data-theme="voxel-world"] .card-title,
@@ -1256,19 +1271,19 @@ textarea.field { resize: vertical; }
 [data-theme="voxel-world"] .card {
   position: relative;
   overflow: hidden;
-  padding: 22px 112px 22px 22px;
-  min-height: 142px;
+  padding: 18px 86px 18px 20px;
+  min-height: 108px;
 }
 
 [data-theme="voxel-world"] .identity-card {
-  min-height: 166px;
-  padding-left: 122px;
-  padding-right: 92px;
+  min-height: 118px;
+  padding-left: 92px;
+  padding-right: 76px;
 }
 
-[data-theme="voxel-world"] .quote-card { min-height: 170px; }
-[data-theme="voxel-world"] .latin-card { min-height: 158px; }
-[data-theme="voxel-world"] .quote-text { font-family: var(--font-heading); font-style: normal; font-weight: 800; font-size: 18px; }
+[data-theme="voxel-world"] .quote-card { min-height: 124px; }
+[data-theme="voxel-world"] .latin-card { min-height: 116px; }
+[data-theme="voxel-world"] .quote-text { font-family: var(--font-heading); font-style: normal; font-weight: 800; font-size: 16px; }
 [data-theme="voxel-world"] .quote-author { color: var(--primary); }
 [data-theme="voxel-world"] .latin-phrase { color: var(--text); font-size: 18px; }
 [data-theme="voxel-world"] .latin-meaning { color: var(--xp); font-style: normal; }
@@ -1279,17 +1294,17 @@ textarea.field { resize: vertical; }
   z-index: 1;
   display: grid;
   place-items: center;
-  width: 82px;
-  height: 82px;
-  right: 18px;
+  width: 64px;
+  height: 64px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
   filter: drop-shadow(0 0 9px var(--theme-glow));
 }
 
 [data-theme="voxel-world"] .voxel-card-icon svg { width: 100%; height: 100%; }
-[data-theme="voxel-world"] .voxel-hero-icon { left: 18px; right: auto; width: 90px; height: 90px; }
-[data-theme="voxel-world"] .voxel-tree-icon { width: 68px; height: 68px; }
+[data-theme="voxel-world"] .voxel-hero-icon { left: 12px; right: auto; width: 72px; height: 72px; }
+[data-theme="voxel-world"] .voxel-tree-icon { width: 54px; height: 54px; }
 [data-theme="voxel-world"] .voxel-grass { fill: #76D94F; stroke: #B9FF7B; stroke-width: 1; }
 [data-theme="voxel-world"] .voxel-dirt { fill: #6B4529; stroke: #352518; stroke-width: 1; }
 [data-theme="voxel-world"] .voxel-skin { fill: #D39463; stroke: #3D281B; stroke-width: 2; }
@@ -1307,16 +1322,16 @@ textarea.field { resize: vertical; }
 
 [data-theme="voxel-world"] .stats-grid { gap: 8px; }
 [data-theme="voxel-world"] .stat-tile {
-  min-height: 116px;
-  padding: 12px 6px 10px;
+  min-height: 92px;
+  padding: 8px 5px 7px;
   justify-content: center;
   gap: 2px;
 }
 
 [data-theme="voxel-world"] .stat-icon {
   display: block;
-  width: 42px;
-  height: 42px;
+  width: 34px;
+  height: 34px;
   margin-bottom: 1px;
   filter: drop-shadow(0 0 7px var(--theme-glow));
 }
@@ -1333,11 +1348,11 @@ textarea.field { resize: vertical; }
 [data-theme="voxel-world"] .stat-icon-book path:not(.icon-lines) { fill: #168E7A; }
 [data-theme="voxel-world"] .stat-icon-trophy path:first-child { fill: #F5C84C; stroke: #9B6518; }
 [data-theme="voxel-world"] .stat-icon-xp text { fill: #ECFFF0; stroke: none; font: 900 9px var(--font-heading); }
-[data-theme="voxel-world"] .stat-value { color: var(--primary); font: 900 23px var(--font-heading); }
+[data-theme="voxel-world"] .stat-value { color: var(--primary); font: 900 20px var(--font-heading); }
 [data-theme="voxel-world"] .stat-label { color: var(--primary); font: 800 9px var(--font-heading); letter-spacing: .12em; }
 
 [data-theme="voxel-world"] .tabs {
-  min-height: 58px;
+  min-height: 50px;
   padding: 4px;
   background: rgba(0,30,35,.88);
 }
@@ -1360,7 +1375,7 @@ textarea.field { resize: vertical; }
 
 [data-theme="voxel-world"] .empty-state {
   position: relative;
-  min-height: 224px;
+  min-height: 184px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1375,9 +1390,9 @@ textarea.field { resize: vertical; }
 
 [data-theme="voxel-world"] .voxel-empty-icon {
   display: block;
-  width: 60px;
-  height: 60px;
-  margin-bottom: 10px;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 8px;
   filter: drop-shadow(0 0 10px var(--theme-glow));
 }
 
@@ -1389,6 +1404,19 @@ textarea.field { resize: vertical; }
 [data-theme="voxel-world"] .pack-lock { fill: #9BC8B9; stroke: #183F3A; stroke-width: 1.5; }
 [data-theme="voxel-world"] .empty-title { font: 900 17px var(--font-heading); color: #FFFFFF; }
 [data-theme="voxel-world"] .empty-hint { color: var(--xp); }
+
+[data-theme="voxel-world"] .empty-state::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(145deg,#91ED58 0 45%,#3A8F35 46% 68%,#6B4529 69%);
+  border: 1px solid #9EFF75;
+  box-shadow: 0 0 9px var(--theme-glow);
+  transform: translateX(-50%) rotate(7deg);
+}
 
 [data-theme="voxel-world"] .habit-card { min-height: 78px; }
 [data-theme="voxel-world"] .habit-name { font-family: var(--font-heading); }
@@ -1415,18 +1443,17 @@ textarea.field { resize: vertical; }
 [data-theme="voxel-world"] .theme-card { font-family: var(--font); }
 
 @media (max-width: 430px) {
-  [data-theme="voxel-world"] .xp-total { display: none; }
   [data-theme="voxel-world"] .theme-shortcut { width: 128px; padding: 0 10px; }
   [data-theme="voxel-world"] .theme-shortcut-label { font-size: 10px; }
-  [data-theme="voxel-world"] .identity-card { padding-left: 92px; padding-right: 18px; }
-  [data-theme="voxel-world"] .voxel-hero-icon { left: 12px; width: 70px; height: 70px; }
+  [data-theme="voxel-world"] .identity-card { padding-left: 78px; padding-right: 16px; }
+  [data-theme="voxel-world"] .voxel-hero-icon { left: 8px; width: 62px; height: 62px; }
   [data-theme="voxel-world"] .voxel-tree-icon { display: none; }
-  [data-theme="voxel-world"] .card { padding-right: 86px; }
-  [data-theme="voxel-world"] .voxel-card-icon { right: 10px; width: 64px; height: 64px; }
-  [data-theme="voxel-world"] .quote-text { font-size: 15px; }
+  [data-theme="voxel-world"] .card { padding-right: 72px; }
+  [data-theme="voxel-world"] .voxel-card-icon { right: 8px; width: 54px; height: 54px; }
+  [data-theme="voxel-world"] .quote-text { font-size: 14px; }
   [data-theme="voxel-world"] .latin-phrase { font-size: 14px; }
-  [data-theme="voxel-world"] .stat-tile { min-height: 104px; }
-  [data-theme="voxel-world"] .stat-icon { width: 34px; height: 34px; }
+  [data-theme="voxel-world"] .stat-tile { min-height: 88px; }
+  [data-theme="voxel-world"] .stat-icon { width: 31px; height: 31px; }
 }
 
 [data-theme="light"] .bg-glow { opacity: .16; }
