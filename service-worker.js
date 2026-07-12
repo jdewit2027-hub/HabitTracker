@@ -1,5 +1,5 @@
 /* Habit RPG service worker — cache-first with network fallback */
-var CACHE_NAME = 'habit-rpg-cache-v12';
+var CACHE_NAME = 'habit-rpg-cache-v17';
 
 var THEMES = [
   'voxel-world', 'blue-ember', 'abyssal-athlete', 'midnight-virtuoso',
@@ -31,6 +31,9 @@ THEMES.forEach(function (theme) {
     CORE_ASSETS.push('./assets/themes/' + theme + '/' + part + '.svg');
   });
 });
+
+/* Voxel World uses a raster photo background (Image 1) instead of bg.svg. */
+CORE_ASSETS.push('./assets/themes/voxel-world/background.webp');
 
 self.addEventListener('install', function (event) {
   event.waitUntil(
