@@ -17,7 +17,7 @@
 [data-theme="voxel-world"] {
   --theme-bg: #0a2622;
   /* Production Minecraft-shaders render (shipped asset, used directly). */
-  --theme-bg-image: url("../../assets/themes/voxel-world/backround(1).png");
+  --theme-bg-image: url("../../assets/themes/voxel-world/background.png");
   --theme-bg-overlay: linear-gradient(180deg, rgba(2,14,16,.03), rgba(2,16,18,.07) 55%, rgba(1,10,12,.12));
   --theme-texture: none;
   --theme-surface: #073332;
@@ -100,7 +100,7 @@
 }
 
 [data-theme="voxel-world"] {
-  background-position: 50% center;
+  background-position: 66% center;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
