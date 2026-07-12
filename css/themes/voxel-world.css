@@ -274,14 +274,14 @@
 [data-theme="voxel-world"] .card-art-quote,
 [data-theme="voxel-world"] .card-art-saying,
 [data-theme="voxel-world"] .stat-icon,
-[data-theme="voxel-world"] .empty-art,
 [data-theme="voxel-world"] .empty-state::after {
   mix-blend-mode: lighten;
 }
 
-/* Give the detailed backpack render a bit more presence in the empty
-   quest panel, matching the mockup. Voxel-scoped — other themes keep the
-   shared sizing. */
+/* The backpack render's dark field is cut to transparency, so it needs no
+   blend (which would dull its own colours); just give it a bit more
+   presence in the empty quest panel, matching the mockup. Voxel-scoped —
+   other themes keep the shared sizing. */
 [data-theme="voxel-world"] .empty-art {
   width: clamp(92px, 23vw, 118px);
   height: clamp(92px, 23vw, 118px);
