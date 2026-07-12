@@ -228,6 +228,8 @@
 
 /* ---------- empty state ---------- */
 
+.empty-state[hidden] { display: none; }
+
 .empty-state {
   position: relative;
   min-height: clamp(200px, 32vw, 300px);
