@@ -17,7 +17,9 @@
 [data-theme="voxel-world"] {
   --theme-bg: #0a2622;
   /* Production Minecraft-shaders render (shipped asset, used directly). */
-  --theme-bg-image: url("../../assets/themes/voxel-world/background.png");
+  /* This variable is consumed by css/app.css, so the URL must be relative
+     to that file (one level above assets), not to this theme stylesheet. */
+  --theme-bg-image: url("../assets/themes/voxel-world/background.png");
   --theme-bg-overlay: linear-gradient(180deg, rgba(2,14,16,.03), rgba(2,16,18,.07) 55%, rgba(1,10,12,.12));
   --theme-texture: none;
   --theme-surface: #073332;
@@ -99,7 +101,14 @@
     inset 0 0 14px rgba(110,232,244,.32);
 }
 
-[data-theme="voxel-world"] {
+html[data-theme="voxel-world"] {
+  /* Direct root declaration is intentionally duplicated from the semantic
+     variables above so the deployed /HabitTracker/ base path cannot be lost
+     when the custom property is substituted by css/app.css. */
+  background-color: var(--theme-bg);
+  background-image:
+    var(--theme-bg-overlay),
+    url("../../assets/themes/voxel-world/background.png");
   background-position: 66% center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -107,6 +116,17 @@
 }
 
 [data-theme="voxel-world"] body { letter-spacing: .02em; }
+
+html[data-theme="voxel-world"] body,
+html[data-theme="voxel-world"] main {
+  background-color: transparent;
+  background-image: none;
+}
+
+html[data-theme="voxel-world"] body::before,
+html[data-theme="voxel-world"] body::after {
+  background-color: transparent;
+}
 
 [data-theme="voxel-world"] .bg-glow { opacity: .08; }
 
@@ -332,15 +352,8 @@
 }
 
 [data-theme="voxel-world"] .empty-state::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -13px;
-  width: 26px;
-  height: 26px;
-  transform: translateX(-50%);
-  background: url("../../assets/themes/voxel-world/bottom-block-clean.png") center / contain no-repeat;
-  filter: drop-shadow(0 0 8px rgba(120,255,170,.5));
+  content: none;
+  display: none;
 }
 
 [data-theme="voxel-world"] .empty-title {

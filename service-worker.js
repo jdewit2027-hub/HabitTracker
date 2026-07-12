@@ -1,5 +1,5 @@
 /* Habit RPG service worker — cache-first with network fallback */
-var CACHE_NAME = 'habit-rpg-cache-v23';
+var CACHE_NAME = 'habit-rpg-cache-v24';
 
 var THEMES = [
   'voxel-world', 'blue-ember', 'abyssal-athlete', 'midnight-virtuoso',
@@ -48,11 +48,17 @@ self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(function (cache) {
-        /* Icons may not exist yet — cache them individually so a missing
-           file doesn't block install of the rest of the app. */
+        /* Bypass the browser HTTP cache while building a new versioned cache.
+           Otherwise a new worker can accidentally precache stale CSS. */
         return Promise.all(
           CORE_ASSETS.map(function (url) {
-            return cache.add(url).catch(function () {});
+            return fetch(url, { cache: 'reload' })
+              .then(function (response) {
+                if (response && response.status === 200) {
+                  return cache.put(url, response);
+                }
+              })
+              .catch(function () {});
           })
         );
       })
@@ -71,11 +77,39 @@ self.addEventListener('activate', function (event) {
         );
       })
       .then(function () { return self.clients.claim(); })
+      .then(function () { return self.clients.matchAll({ type: 'window' }); })
+      .then(function (clients) {
+        return Promise.all(clients.map(function (client) {
+          return client.navigate(client.url);
+        }));
+      })
   );
 });
 
 self.addEventListener('fetch', function (event) {
   if (event.request.method !== 'GET') return;
+
+  var requestUrl = new URL(event.request.url);
+  var mustRefresh = event.request.mode === 'navigate' ||
+    event.request.destination === 'style' ||
+    requestUrl.pathname.endsWith('/assets/themes/voxel-world/background.png');
+
+  if (mustRefresh) {
+    event.respondWith(
+      fetch(event.request, { cache: 'reload' })
+        .then(function (response) {
+          if (response && response.status === 200 && response.type === 'basic') {
+            var copy = response.clone();
+            caches.open(CACHE_NAME).then(function (cache) {
+              cache.put(event.request, copy);
+            });
+          }
+          return response;
+        })
+        .catch(function () { return caches.match(event.request); })
+    );
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request).then(function (cached) {
