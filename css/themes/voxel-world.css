@@ -16,8 +16,8 @@
 
 [data-theme="voxel-world"] {
   --theme-bg: #0a2622;
-  /* Real Minecraft-shaders render (upscaled + sharpened + dusk grade). */
-  --theme-bg-image: url("../../assets/themes/voxel-world/background.webp");
+  /* Production Minecraft-shaders render (shipped asset, used directly). */
+  --theme-bg-image: url("../../assets/themes/voxel-world/background.png");
   --theme-bg-overlay: linear-gradient(180deg, rgba(4,22,22,.10), rgba(2,18,20,.16) 55%, rgba(1,12,14,.34));
   --theme-texture: none;
   --theme-surface: #073332;
@@ -57,21 +57,22 @@
     8px 100%, 8px calc(100% - 4px), 4px calc(100% - 4px),
     4px calc(100% - 8px), 0 calc(100% - 8px));
 
-  --art-hero: url("../../assets/themes/voxel-world/hero.svg");
-  --art-sigil: url("../../assets/themes/voxel-world/sigil.svg");
-  --art-quote: url("../../assets/themes/voxel-world/quote.svg");
-  --art-saying: url("../../assets/themes/voxel-world/saying.svg");
+  /* Shipped production artwork (used directly, not recreated). */
+  --art-hero: url("../../assets/themes/voxel-world/steve.png");
+  --art-sigil: url("../../assets/themes/voxel-world/tree.png");
+  --art-quote: url("../../assets/themes/voxel-world/hourglass.png");
+  --art-saying: url("../../assets/themes/voxel-world/monument.png");
   --art-empty: url("../../assets/themes/voxel-world/empty.svg");
-  --art-stat-completed: url("../../assets/themes/voxel-world/stat-completed.svg");
-  --art-stat-level: url("../../assets/themes/voxel-world/stat-level.svg");
-  --art-stat-xp: url("../../assets/themes/voxel-world/stat-xp.svg");
-  --art-stat-today: url("../../assets/themes/voxel-world/stat-today.svg");
-  --art-stat-habits: url("../../assets/themes/voxel-world/stat-habits.svg");
-  --art-stat-streak: url("../../assets/themes/voxel-world/stat-streak.svg");
+  --art-stat-completed: url("../../assets/themes/voxel-world/grass-block.png");
+  --art-stat-level: url("../../assets/themes/voxel-world/diamond.png");
+  --art-stat-xp: url("../../assets/themes/voxel-world/xp.png");
+  --art-stat-today: url("../../assets/themes/voxel-world/sword.png");
+  --art-stat-habits: url("../../assets/themes/voxel-world/book.png");
+  --art-stat-streak: url("../../assets/themes/voxel-world/trophy.png");
   --art-glow: drop-shadow(0 3px 8px rgba(0,10,12,.5));
 
   --panel-texture: none;
-  --panel-fill: linear-gradient(180deg, rgba(7,42,41,.58), rgba(3,24,26,.70));
+  --panel-fill: linear-gradient(180deg, rgba(6,40,39,.82), rgba(3,22,24,.88));
   --panel-border: 1.5px solid rgba(148,240,214,.58);
   --panel-radius: 0px;
   --panel-clip: var(--voxel-clip);
@@ -122,22 +123,24 @@
 [data-theme="voxel-world"] .header-main { flex: 0 0 100%; }
 [data-theme="voxel-world"] .header-title-row { justify-content: flex-end; margin: 0; }
 
+/* The shipped badge.png is the whole "VOXEL WORLD" pill (frame + grass
+   cube + wordmark baked in); render it directly and drop the generic
+   pill chrome and text. */
 [data-theme="voxel-world"] .theme-shortcut {
-  height: 38px;
-  padding: 0 14px;
-  gap: 8px;
+  width: clamp(150px, 42vw, 190px);
+  height: auto;
+  aspect-ratio: 682 / 164;
+  padding: 0;
+  gap: 0;
+  border: 0;
+  clip-path: none;
+  background: url("../../assets/themes/voxel-world/badge.png") center / contain no-repeat;
+  box-shadow: none;
+  filter: drop-shadow(0 2px 7px rgba(0,10,12,.6));
 }
 
-[data-theme="voxel-world"] .theme-shortcut-label {
-  font-size: 10px;
-  letter-spacing: .18em;
-}
-
-[data-theme="voxel-world"] .theme-badge {
-  width: 20px;
-  height: 20px;
-  background-image: url("../../assets/themes/voxel-world/stat-completed.svg");
-}
+[data-theme="voxel-world"] .theme-shortcut-label,
+[data-theme="voxel-world"] .theme-badge { display: none; }
 
 /* ---------- glass panels: sharp background, soft bloom ---------- */
 
@@ -249,14 +252,30 @@
   letter-spacing: .04em;
 }
 
-/* ---------- framed hero portrait (left of identity) ---------- */
+/* ---------- framed hero portrait (left of identity) ----------
+   Steve is a shipped render on a dark field; fill the reference's
+   rounded-square frame edge-to-edge so the field becomes the frame. */
 
 [data-theme="voxel-world"] .card-art-hero {
   background-color: rgba(5,38,36,.55);
-  background-size: 82%;
+  background-size: cover;
+  background-position: center;
   border: 2px solid rgba(180,255,215,.75);
   border-radius: 18px;
   box-shadow: inset 0 0 14px rgba(60,200,170,.22), 0 0 12px rgba(120,255,170,.35);
+}
+
+/* The other side/stat artwork are opaque renders on near-black fields.
+   `lighten` drops those dark fields into the darker panel so only the lit
+   voxel art shows — no hard thumbnail boxes — while keeping the bright art
+   fully saturated (unlike `screen`, which bleaches it), matching the
+   reference. */
+[data-theme="voxel-world"] .card-art-sigil,
+[data-theme="voxel-world"] .card-art-quote,
+[data-theme="voxel-world"] .card-art-saying,
+[data-theme="voxel-world"] .stat-icon,
+[data-theme="voxel-world"] .empty-state::after {
+  mix-blend-mode: lighten;
 }
 
 /* ---------- stats ---------- */
@@ -314,7 +333,7 @@
   width: 26px;
   height: 26px;
   transform: translateX(-50%);
-  background: url("../../assets/themes/voxel-world/stat-completed.svg") center / contain no-repeat;
+  background: url("../../assets/themes/voxel-world/bottom-block.png") center / contain no-repeat;
   filter: drop-shadow(0 0 8px rgba(120,255,170,.5));
 }
 
@@ -331,12 +350,20 @@
   color: var(--theme-accent-secondary);
 }
 
-/* ---------- floating add button ---------- */
+/* ---------- floating add button ----------
+   Shipped fab.png carries the glowing ring + plus; render it directly. */
 
 [data-theme="voxel-world"] .fab {
   width: clamp(66px, 7.2vw, 84px);
   height: clamp(66px, 7.2vw, 84px);
+  border: 0;
+  background: url("../../assets/themes/voxel-world/fab.png") center / contain no-repeat;
+  box-shadow: none;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 4px 12px rgba(0,12,14,.5)) drop-shadow(0 0 14px rgba(90,230,245,.45));
 }
+
+[data-theme="voxel-world"] .fab > svg { display: none; }
 
 /* ---------- misc components ---------- */
 
