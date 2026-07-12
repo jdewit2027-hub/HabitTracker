@@ -2,9 +2,8 @@
    Voxel World — final Image-4 spec: golden-hour shader lake behind sleek
    dark-teal glass panels. Panels carry a subtle two-step pixel notch,
    thin cyan-mint borders and brighter corner brackets. Titles, labels and
-   secondary text render in the vendored "Voxel Pixel" 5x7 pixel font;
-   large statements (quote, Latin phrase, empty title) use a clean bold
-   sans, exactly as in the reference.
+   secondary text and the daily quote render in the vendored "Voxel Pixel"
+   5x7 pixel font; the remaining large statements use a clean bold sans.
    ========================================================================== */
 
 @font-face {
@@ -247,11 +246,12 @@ html[data-theme="voxel-world"] body::after {
 }
 
 [data-theme="voxel-world"] .quote-text {
-  font-family: var(--voxel-sans);
+  font-family: var(--font-heading);
   font-style: normal;
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(17px, 2.2vw, 22px);
-  line-height: 1.35;
+  line-height: 1.5;
+  letter-spacing: .035em;
   color: #F6FFFA;
 }
 
