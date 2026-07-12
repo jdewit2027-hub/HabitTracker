@@ -1,30 +1,38 @@
 /* ==========================================================================
-   Voxel World — sunset voxel lake, dark teal glass panels with two-step
-   pixel-notched corners, mint borders, cyan/green glow. Matches the
-   uploaded reference composition: theme pill top-right, framed hero
-   portrait, hourglass & portal artwork, dashed quest panel with a grass
-   cube on its lower edge, ringed cyan add button.
+   Voxel World — final Image-4 spec: golden-hour shader lake behind sleek
+   dark-teal glass panels. Panels carry a subtle two-step pixel notch,
+   thin cyan-mint borders and brighter corner brackets. Titles, labels and
+   secondary text render in the vendored "Voxel Pixel" 5x7 pixel font;
+   large statements (quote, Latin phrase, empty title) use a clean bold
+   sans, exactly as in the reference.
    ========================================================================== */
+
+@font-face {
+  font-family: "VoxelPixel";
+  src: url("../../assets/fonts/voxel-pixel.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
 
 [data-theme="voxel-world"] {
   --theme-bg: #0a2622;
-  /* Image 1 (Minecraft-shaders render) used directly as the background. */
-  --theme-bg-image: url("../../assets/themes/voxel-world/background.webp");
-  --theme-bg-overlay: linear-gradient(180deg, rgba(3,20,20,.1), rgba(2,18,20,.2) 52%, rgba(1,12,14,.5));
+  /* Production Minecraft-shaders render (shipped asset, used directly). */
+  --theme-bg-image: url("../../assets/themes/voxel-world/background.png");
+  --theme-bg-overlay: linear-gradient(180deg, rgba(4,22,22,.10), rgba(2,18,20,.16) 55%, rgba(1,12,14,.34));
   --theme-texture: none;
   --theme-surface: #073332;
   --theme-surface-raised: #0B4A45;
-  --theme-surface-transparent: rgba(4,33,32,.68);
+  --theme-surface-transparent: rgba(4,33,32,.60);
   --theme-header: transparent;
   --theme-input: rgba(2,24,24,.72);
   --theme-text: #F2FFF6;
   --theme-text-muted: #74D8EA;
   --theme-accent: #8CF7A6;
   --theme-accent-secondary: #74D8EA;
-  --theme-border: rgba(150,236,190,.32);
-  --theme-border-strong: rgba(168,240,200,.62);
-  --theme-shadow: 0 14px 38px rgba(0,10,12,.55);
-  --theme-glow: rgba(120,255,170,.5);
+  --theme-border: rgba(150,236,190,.30);
+  --theme-border-strong: rgba(168,240,200,.58);
+  --theme-shadow: 0 12px 30px rgba(0,10,12,.45);
+  --theme-glow: rgba(120,255,170,.45);
   --theme-success: #8CF7A6;
   --theme-danger: #FF7D6E;
   --theme-xp-fill: linear-gradient(90deg, #22BFA2, #65F5E5 48%, #8BFF9F);
@@ -32,59 +40,63 @@
   --theme-on-accent: #04281C;
   --theme-radius: 10px;
   --theme-radius-sm: 6px;
-  --theme-heading-font: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  --theme-heading-font: "VoxelPixel", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --theme-body-font: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
 
-  /* three-step pixel corners (5px steps) — matches the reference notch */
-  --voxel-clip: polygon(
-    0 15px, 5px 15px, 5px 10px, 10px 10px, 10px 5px, 15px 5px, 15px 0,
-    calc(100% - 15px) 0, calc(100% - 15px) 5px, calc(100% - 10px) 5px, calc(100% - 10px) 10px,
-    calc(100% - 5px) 10px, calc(100% - 5px) 15px, 100% 15px,
-    100% calc(100% - 15px), calc(100% - 5px) calc(100% - 15px), calc(100% - 5px) calc(100% - 10px),
-    calc(100% - 10px) calc(100% - 10px), calc(100% - 10px) calc(100% - 5px),
-    calc(100% - 15px) calc(100% - 5px), calc(100% - 15px) 100%,
-    15px 100%, 15px calc(100% - 5px), 10px calc(100% - 5px), 10px calc(100% - 10px),
-    5px calc(100% - 10px), 5px calc(100% - 15px), 0 calc(100% - 15px));
+  /* clean sans for the large statements in the reference */
+  --voxel-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 
-  --art-hero: url("../../assets/themes/voxel-world/hero.svg");
-  --art-sigil: url("../../assets/themes/voxel-world/sigil.svg");
-  --art-quote: url("../../assets/themes/voxel-world/quote.svg");
-  --art-saying: url("../../assets/themes/voxel-world/saying.svg");
+  /* two-step pixel corners (4px steps) — the reference notch is subtle */
+  --voxel-clip: polygon(
+    0 8px, 4px 8px, 4px 4px, 8px 4px, 8px 0,
+    calc(100% - 8px) 0, calc(100% - 8px) 4px, calc(100% - 4px) 4px,
+    calc(100% - 4px) 8px, 100% 8px,
+    100% calc(100% - 8px), calc(100% - 4px) calc(100% - 8px),
+    calc(100% - 4px) calc(100% - 4px), calc(100% - 8px) calc(100% - 4px),
+    calc(100% - 8px) 100%,
+    8px 100%, 8px calc(100% - 4px), 4px calc(100% - 4px),
+    4px calc(100% - 8px), 0 calc(100% - 8px));
+
+  /* Shipped production artwork (used directly, not recreated). */
+  --art-hero: url("../../assets/themes/voxel-world/steve.png");
+  --art-sigil: url("../../assets/themes/voxel-world/tree.png");
+  --art-quote: url("../../assets/themes/voxel-world/hourglass.png");
+  --art-saying: url("../../assets/themes/voxel-world/monument.png");
   --art-empty: url("../../assets/themes/voxel-world/empty.svg");
-  --art-stat-completed: url("../../assets/themes/voxel-world/stat-completed.svg");
-  --art-stat-level: url("../../assets/themes/voxel-world/stat-level.svg");
-  --art-stat-xp: url("../../assets/themes/voxel-world/stat-xp.svg");
-  --art-stat-today: url("../../assets/themes/voxel-world/stat-today.svg");
-  --art-stat-habits: url("../../assets/themes/voxel-world/stat-habits.svg");
-  --art-stat-streak: url("../../assets/themes/voxel-world/stat-streak.svg");
-  --art-glow: drop-shadow(0 3px 8px rgba(0,10,12,.55));
+  --art-stat-completed: url("../../assets/themes/voxel-world/grass-block.png");
+  --art-stat-level: url("../../assets/themes/voxel-world/diamond.png");
+  --art-stat-xp: url("../../assets/themes/voxel-world/xp.png");
+  --art-stat-today: url("../../assets/themes/voxel-world/sword.png");
+  --art-stat-habits: url("../../assets/themes/voxel-world/book.png");
+  --art-stat-streak: url("../../assets/themes/voxel-world/trophy.png");
+  --art-glow: drop-shadow(0 3px 8px rgba(0,10,12,.5));
 
   --panel-texture: none;
-  --panel-fill: linear-gradient(180deg, rgba(8,44,42,.72), rgba(3,26,28,.82));
-  --panel-border: 2px solid #9BF7C4;
+  --panel-fill: linear-gradient(180deg, rgba(6,40,39,.82), rgba(3,22,24,.88));
+  --panel-border: 1.5px solid rgba(148,240,214,.58);
   --panel-radius: 0px;
   --panel-clip: var(--voxel-clip);
-  --panel-shadow: inset 0 0 0 1px rgba(120,255,180,.22), inset 0 0 30px rgba(40,180,150,.12);
+  --panel-shadow: inset 0 0 0 1px rgba(120,255,180,.10), inset 0 0 26px rgba(40,180,150,.08);
 
-  --pill-border: 2px solid #9BF7C4;
+  --pill-border: 1.5px solid rgba(148,240,214,.62);
   --pill-radius: 0px;
   --pill-clip: var(--voxel-clip);
-  --pill-bg: linear-gradient(180deg, rgba(8,46,42,.88), rgba(3,26,27,.9));
+  --pill-bg: linear-gradient(180deg, rgba(8,46,42,.82), rgba(3,26,27,.86));
   --pill-ink: #EAFFF2;
-  --pill-shadow: 0 0 14px rgba(120,255,170,.45), inset 0 0 10px rgba(60,200,150,.2);
+  --pill-shadow: 0 0 10px rgba(120,255,170,.32), inset 0 0 8px rgba(60,200,150,.16);
 
   --tab-radius: 12px;
   --tab-active-ink: #F4FFF6;
   --tab-active-bg: linear-gradient(180deg, rgba(122,240,150,.32), rgba(42,120,74,.38));
   --tab-active-border: 2px solid #9BF7A6;
-  --tab-active-glow: inset 0 0 18px rgba(130,255,160,.3), 0 0 16px rgba(120,255,170,.5);
+  --tab-active-glow: inset 0 0 18px rgba(130,255,160,.3), 0 0 14px rgba(120,255,170,.45);
   --tab-clip: none;
 
   --fab-border: 2px solid #6FE8F4;
-  --fab-bg: radial-gradient(circle at 50% 42%, rgba(28,110,116,.55), rgba(4,42,48,.8) 72%);
+  --fab-bg: radial-gradient(circle at 50% 42%, rgba(28,110,116,.55), rgba(4,42,48,.82) 72%);
   --fab-ink: #A8F4FF;
-  --fab-shadow: 0 0 0 6px rgba(80,220,235,.14), 0 0 22px rgba(90,230,245,.55),
-    inset 0 0 12px rgba(110,232,244,.35);
+  --fab-shadow: 0 0 0 6px rgba(80,220,235,.14), 0 0 24px rgba(90,230,245,.5),
+    inset 0 0 14px rgba(110,232,244,.32);
 }
 
 [data-theme="voxel-world"] { background-position: center top; }
@@ -111,19 +123,26 @@
 [data-theme="voxel-world"] .header-main { flex: 0 0 100%; }
 [data-theme="voxel-world"] .header-title-row { justify-content: flex-end; margin: 0; }
 
+/* The shipped badge.png is the whole "VOXEL WORLD" pill (frame + grass
+   cube + wordmark baked in); render it directly and drop the generic
+   pill chrome and text. */
 [data-theme="voxel-world"] .theme-shortcut {
-  height: 44px;
-  padding: 0 16px;
-  gap: 9px;
+  width: clamp(150px, 42vw, 190px);
+  height: auto;
+  aspect-ratio: 682 / 164;
+  padding: 0;
+  gap: 0;
+  border: 0;
+  clip-path: none;
+  background: url("../../assets/themes/voxel-world/badge.png") center / contain no-repeat;
+  box-shadow: none;
+  filter: drop-shadow(0 2px 7px rgba(0,10,12,.6));
 }
 
-[data-theme="voxel-world"] .theme-badge {
-  width: 22px;
-  height: 22px;
-  background-image: url("../../assets/themes/voxel-world/stat-completed.svg");
-}
+[data-theme="voxel-world"] .theme-shortcut-label,
+[data-theme="voxel-world"] .theme-badge { display: none; }
 
-/* ---------- glass panels with faint inner mint line ---------- */
+/* ---------- glass panels: sharp background, soft bloom ---------- */
 
 [data-theme="voxel-world"] .card,
 [data-theme="voxel-world"] .stat-tile,
@@ -131,18 +150,46 @@
 [data-theme="voxel-world"] .habit-card,
 [data-theme="voxel-world"] .empty-state,
 [data-theme="voxel-world"] .modal {
-  /* No backdrop blur — the shader background stays sharp and vibrant.
-     Readability comes from the semi-transparent dark-teal fill, as in the
-     mockup. Bloom kept very subtle. */
+  /* No backdrop blur — the shader background stays sharp and vibrant. */
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-  filter: drop-shadow(0 4px 12px rgba(0,8,10,.45)) drop-shadow(0 0 4px rgba(120,250,180,.16));
+  filter: drop-shadow(0 4px 10px rgba(0,8,10,.38)) drop-shadow(0 0 3px rgba(120,250,180,.12));
 }
 
 [data-theme="voxel-world"] .stat-tile,
 [data-theme="voxel-world"] .tabs {
   border-radius: 0;
   clip-path: var(--voxel-clip);
+}
+
+[data-theme="voxel-world"] .tabs { position: relative; }
+
+/* brighter corner brackets hugging the pixel notch, as in the reference */
+[data-theme="voxel-world"] .card::after,
+[data-theme="voxel-world"] .stat-tile::after,
+[data-theme="voxel-world"] .tabs::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  --bk: rgba(210,255,228,.85);
+  background-image:
+    linear-gradient(var(--bk), var(--bk)), linear-gradient(var(--bk), var(--bk)),
+    linear-gradient(var(--bk), var(--bk)), linear-gradient(var(--bk), var(--bk)),
+    linear-gradient(var(--bk), var(--bk)), linear-gradient(var(--bk), var(--bk)),
+    linear-gradient(var(--bk), var(--bk)), linear-gradient(var(--bk), var(--bk));
+  background-position:
+    9px 3px, 3px 9px,
+    calc(100% - 9px) 3px, calc(100% - 3px) 9px,
+    9px calc(100% - 3px), 3px calc(100% - 9px),
+    calc(100% - 9px) calc(100% - 3px), calc(100% - 3px) calc(100% - 9px);
+  background-size:
+    10px 2px, 2px 10px,
+    10px 2px, 2px 10px,
+    10px 2px, 2px 10px,
+    10px 2px, 2px 10px;
+  background-repeat: no-repeat;
 }
 
 /* ---------- typography ---------- */
@@ -153,47 +200,82 @@
   color: var(--theme-accent);
   -webkit-text-fill-color: currentColor;
   background: none;
-  letter-spacing: .22em;
-  text-shadow: 0 0 10px rgba(120,255,170,.35);
+  letter-spacing: .18em;
+  text-shadow: 0 0 10px rgba(120,255,170,.30);
+}
+
+/* the reference renders the identity title white, unlike the other titles */
+[data-theme="voxel-world"] .identity-card .card-title {
+  color: #F6FFFA;
+  text-shadow: 0 0 10px rgba(225,255,240,.25);
 }
 
 [data-theme="voxel-world"] .identity-text {
   color: var(--theme-accent-secondary);
-  font-weight: 500;
+  font-family: var(--font-heading);
+  font-size: clamp(13px, 1.6vw, 16px);
+  font-weight: 400;
   font-style: normal;
+  letter-spacing: .04em;
 }
 
 [data-theme="voxel-world"] .quote-text {
-  font-family: var(--font-heading);
+  font-family: var(--voxel-sans);
   font-style: normal;
   font-weight: 800;
+  font-size: clamp(17px, 2.2vw, 22px);
+  line-height: 1.35;
   color: #F6FFFA;
 }
 
 [data-theme="voxel-world"] .quote-author {
-  color: rgba(140,247,166,.78);
+  font-family: var(--font-heading);
+  font-weight: 400;
+  color: rgba(140,247,166,.85);
   letter-spacing: .14em;
 }
 
 [data-theme="voxel-world"] .latin-phrase {
+  font-family: var(--voxel-sans);
+  font-weight: 800;
+  font-size: clamp(17px, 2.2vw, 22px);
   color: #F6FFFA;
-  letter-spacing: .06em;
+  letter-spacing: .08em;
   text-shadow: none;
 }
 
 [data-theme="voxel-world"] .latin-meaning {
   color: var(--theme-accent-secondary);
+  font-family: var(--font-heading);
+  font-size: clamp(12px, 1.4vw, 15px);
   font-style: normal;
+  letter-spacing: .04em;
 }
 
-/* ---------- framed hero portrait (left of identity) ---------- */
+/* ---------- framed hero portrait (left of identity) ----------
+   Steve is a shipped render on a dark field; fill the reference's
+   rounded-square frame edge-to-edge so the field becomes the frame. */
 
 [data-theme="voxel-world"] .card-art-hero {
   background-color: rgba(5,38,36,.55);
-  background-size: 82%;
-  border: 1.5px solid rgba(168,240,200,.55);
-  border-radius: 16px;
-  box-shadow: inset 0 0 14px rgba(60,200,170,.18), 0 0 10px rgba(120,255,170,.2);
+  background-size: cover;
+  background-position: center;
+  border: 2px solid rgba(180,255,215,.75);
+  border-radius: 18px;
+  box-shadow: inset 0 0 14px rgba(60,200,170,.22), 0 0 12px rgba(120,255,170,.35);
+}
+
+/* The other side/stat artwork are opaque renders on near-black fields.
+   `lighten` drops those dark fields into the darker panel so only the lit
+   voxel art shows — no hard thumbnail boxes — while keeping the bright art
+   fully saturated (unlike `screen`, which bleaches it), matching the
+   reference. */
+[data-theme="voxel-world"] .card-art-sigil,
+[data-theme="voxel-world"] .card-art-quote,
+[data-theme="voxel-world"] .card-art-saying,
+[data-theme="voxel-world"] .stat-icon,
+[data-theme="voxel-world"] .empty-state::after {
+  mix-blend-mode: lighten;
 }
 
 /* ---------- stats ---------- */
@@ -201,27 +283,39 @@
 [data-theme="voxel-world"] .stat-value {
   color: #9CFAA4;
   text-shadow: 0 0 12px rgba(120,255,150,.55);
-  font-weight: 900;
+  font-weight: 400;
+  font-size: clamp(20px, 2.4vw, 28px);
 }
 
 [data-theme="voxel-world"] .stat-label {
+  font-family: var(--font-heading);
+  font-weight: 400;
   color: var(--theme-accent);
-  letter-spacing: .16em;
+  letter-spacing: .14em;
+}
+
+[data-theme="voxel-world"] .stat-icon {
+  width: clamp(44px, 9vw, 76px);
+  height: clamp(44px, 9vw, 76px);
 }
 
 /* ---------- tabs: rounded glowing green key for the active tab ---------- */
 
 [data-theme="voxel-world"] .tabs {
-  background: linear-gradient(180deg, rgba(6,40,38,.72), rgba(2,22,23,.78));
+  background: linear-gradient(180deg, rgba(6,40,38,.62), rgba(2,22,23,.70));
   padding: 6px;
   gap: 6px;
 }
 
 [data-theme="voxel-world"] .tab {
-  color: #7FA9A4;
-  font-weight: 800;
-  letter-spacing: .04em;
+  font-family: var(--voxel-sans);
+  color: #8FB5AE;
+  font-weight: 700;
+  letter-spacing: .02em;
+  font-size: clamp(14px, 1.6vw, 17px);
 }
+
+[data-theme="voxel-world"] .tab.is-active { font-weight: 800; }
 
 /* ---------- empty quest panel: dashed border + grass cube on the rim --- */
 
@@ -239,14 +333,43 @@
   width: 26px;
   height: 26px;
   transform: translateX(-50%);
-  background: url("../../assets/themes/voxel-world/stat-completed.svg") center / contain no-repeat;
+  background: url("../../assets/themes/voxel-world/bottom-block.png") center / contain no-repeat;
   filter: drop-shadow(0 0 8px rgba(120,255,170,.5));
 }
 
-[data-theme="voxel-world"] .empty-title { color: #FFFFFF; }
-[data-theme="voxel-world"] .empty-hint { color: var(--theme-accent-secondary); }
+[data-theme="voxel-world"] .empty-title {
+  font-family: var(--voxel-sans);
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+[data-theme="voxel-world"] .empty-hint {
+  font-family: var(--font-heading);
+  font-size: clamp(11px, 1.3vw, 14px);
+  letter-spacing: .04em;
+  color: var(--theme-accent-secondary);
+}
+
+/* ---------- floating add button ----------
+   Shipped fab.png carries the glowing ring + plus; render it directly. */
+
+[data-theme="voxel-world"] .fab {
+  width: clamp(66px, 7.2vw, 84px);
+  height: clamp(66px, 7.2vw, 84px);
+  border: 0;
+  background: url("../../assets/themes/voxel-world/fab.png") center / contain no-repeat;
+  box-shadow: none;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 4px 12px rgba(0,12,14,.5)) drop-shadow(0 0 14px rgba(90,230,245,.45));
+}
+
+[data-theme="voxel-world"] .fab > svg { display: none; }
 
 /* ---------- misc components ---------- */
+
+[data-theme="voxel-world"] .habit-name {
+  font-family: var(--theme-body-font);
+}
 
 [data-theme="voxel-world"] .habit-check { border-radius: 8px; }
 
@@ -273,12 +396,18 @@
   background-clip: text;
 }
 
-/* the reference keeps the tree sigil visible even on narrow phones */
+/* the reference keeps the tree sigil visible even on narrow phones,
+   and renders the side artwork larger than the other themes */
 @media (max-width: 430px) {
   [data-theme="voxel-world"] .card-art-sigil {
     display: block;
-    width: 58px;
-    height: 58px;
+    width: 64px;
+    height: 64px;
   }
-  [data-theme="voxel-world"] .identity-card { padding-right: 76px; }
+  [data-theme="voxel-world"] .identity-card { padding-left: 100px; padding-right: 80px; }
+  [data-theme="voxel-world"] .card-art-hero { width: 76px; height: 76px; }
+  [data-theme="voxel-world"] .card-art-quote,
+  [data-theme="voxel-world"] .card-art-saying { width: 78px; height: 78px; }
+  [data-theme="voxel-world"] .quote-card,
+  [data-theme="voxel-world"] .latin-card { padding-right: 96px; }
 }
