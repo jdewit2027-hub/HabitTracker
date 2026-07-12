@@ -17,8 +17,8 @@
 [data-theme="voxel-world"] {
   --theme-bg: #0a2622;
   /* Production Minecraft-shaders render (shipped asset, used directly). */
-  --theme-bg-image: url("../../assets/themes/voxel-world/background.png");
-  --theme-bg-overlay: linear-gradient(180deg, rgba(4,22,22,.10), rgba(2,18,20,.16) 55%, rgba(1,12,14,.34));
+  --theme-bg-image: url("../../assets/themes/voxel-world/backround(1).png");
+  --theme-bg-overlay: linear-gradient(180deg, rgba(2,14,16,.03), rgba(2,16,18,.07) 55%, rgba(1,10,12,.12));
   --theme-texture: none;
   --theme-surface: #073332;
   --theme-surface-raised: #0B4A45;
@@ -72,7 +72,7 @@
   --art-glow: drop-shadow(0 3px 8px rgba(0,10,12,.5));
 
   --panel-texture: none;
-  --panel-fill: linear-gradient(180deg, rgba(6,40,39,.82), rgba(3,22,24,.88));
+  --panel-fill: linear-gradient(180deg, rgba(6,40,39,.68), rgba(3,22,24,.73));
   --panel-border: 1.5px solid rgba(148,240,214,.58);
   --panel-radius: 0px;
   --panel-clip: var(--voxel-clip);
@@ -99,9 +99,16 @@
     inset 0 0 14px rgba(110,232,244,.32);
 }
 
-[data-theme="voxel-world"] { background-position: center top; }
+[data-theme="voxel-world"] {
+  background-position: 50% center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
 
 [data-theme="voxel-world"] body { letter-spacing: .02em; }
+
+[data-theme="voxel-world"] .bg-glow { opacity: .08; }
 
 /* ---------- header: only the theme pill, as in the reference ---------- */
 
