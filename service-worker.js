@@ -1,5 +1,5 @@
 /* Habit RPG service worker — cache-first with network fallback */
-var CACHE_NAME = 'habit-rpg-cache-v13';
+var CACHE_NAME = 'habit-rpg-cache-v14';
 
 var THEMES = [
   'voxel-world', 'blue-ember', 'abyssal-athlete', 'midnight-virtuoso',
