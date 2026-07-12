@@ -1,5 +1,5 @@
 /* Habit RPG service worker — cache-first with network fallback */
-var CACHE_NAME = 'habit-rpg-cache-v20';
+var CACHE_NAME = 'habit-rpg-cache-v21';
 
 var THEMES = [
   'voxel-world', 'blue-ember', 'abyssal-athlete', 'midnight-virtuoso',
@@ -35,9 +35,10 @@ THEMES.forEach(function (theme) {
 /* Voxel World ships production PNG renders (shader background + voxel art)
    plus the pixel font, in addition to the shared per-theme SVGs above. */
 [
-  'background', 'steve', 'tree', 'hourglass', 'monument', 'grass-block',
-  'diamond', 'xp', 'sword', 'book', 'trophy', 'bottom-block', 'badge', 'fab',
-  'backpack'
+  'background', 'backpack',
+  'steve-clean', 'tree-clean', 'hourglass-clean', 'monument-clean',
+  'grass-block-clean', 'diamond-clean', 'xp-clean', 'sword-clean',
+  'book-clean', 'trophy-clean', 'bottom-block-clean', 'badge-clean', 'fab-clean'
 ].forEach(function (part) {
   CORE_ASSETS.push('./assets/themes/voxel-world/' + part + '.png');
 });

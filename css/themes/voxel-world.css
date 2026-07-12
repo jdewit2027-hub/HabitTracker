@@ -58,17 +58,17 @@
     4px calc(100% - 8px), 0 calc(100% - 8px));
 
   /* Shipped production artwork (used directly, not recreated). */
-  --art-hero: url("../../assets/themes/voxel-world/steve.png");
-  --art-sigil: url("../../assets/themes/voxel-world/tree.png");
-  --art-quote: url("../../assets/themes/voxel-world/hourglass.png");
-  --art-saying: url("../../assets/themes/voxel-world/monument.png");
+  --art-hero: url("../../assets/themes/voxel-world/steve-clean.png");
+  --art-sigil: url("../../assets/themes/voxel-world/tree-clean.png");
+  --art-quote: url("../../assets/themes/voxel-world/hourglass-clean.png");
+  --art-saying: url("../../assets/themes/voxel-world/monument-clean.png");
   --art-empty: url("../../assets/themes/voxel-world/backpack.png");
-  --art-stat-completed: url("../../assets/themes/voxel-world/grass-block.png");
-  --art-stat-level: url("../../assets/themes/voxel-world/diamond.png");
-  --art-stat-xp: url("../../assets/themes/voxel-world/xp.png");
-  --art-stat-today: url("../../assets/themes/voxel-world/sword.png");
-  --art-stat-habits: url("../../assets/themes/voxel-world/book.png");
-  --art-stat-streak: url("../../assets/themes/voxel-world/trophy.png");
+  --art-stat-completed: url("../../assets/themes/voxel-world/grass-block-clean.png");
+  --art-stat-level: url("../../assets/themes/voxel-world/diamond-clean.png");
+  --art-stat-xp: url("../../assets/themes/voxel-world/xp-clean.png");
+  --art-stat-today: url("../../assets/themes/voxel-world/sword-clean.png");
+  --art-stat-habits: url("../../assets/themes/voxel-world/book-clean.png");
+  --art-stat-streak: url("../../assets/themes/voxel-world/trophy-clean.png");
   --art-glow: drop-shadow(0 3px 8px rgba(0,10,12,.5));
 
   --panel-texture: none;
@@ -134,7 +134,7 @@
   gap: 0;
   border: 0;
   clip-path: none;
-  background: url("../../assets/themes/voxel-world/badge.png") center / contain no-repeat;
+  background: url("../../assets/themes/voxel-world/badge-clean.png") center / contain no-repeat;
   box-shadow: none;
   filter: drop-shadow(0 2px 7px rgba(0,10,12,.6));
 }
@@ -265,18 +265,8 @@
   box-shadow: inset 0 0 14px rgba(60,200,170,.22), 0 0 12px rgba(120,255,170,.35);
 }
 
-/* The other side/stat artwork are opaque renders on near-black fields.
-   `lighten` drops those dark fields into the darker panel so only the lit
-   voxel art shows — no hard thumbnail boxes — while keeping the bright art
-   fully saturated (unlike `screen`, which bleaches it), matching the
-   reference. */
-[data-theme="voxel-world"] .card-art-sigil,
-[data-theme="voxel-world"] .card-art-quote,
-[data-theme="voxel-world"] .card-art-saying,
-[data-theme="voxel-world"] .stat-icon,
-[data-theme="voxel-world"] .empty-state::after {
-  mix-blend-mode: lighten;
-}
+/* Side and stat artwork use true-alpha cleaned renders, so normal
+   compositing preserves their original saturation and pixel edges. */
 
 /* The backpack render's dark field is cut to transparency, so it needs no
    blend (which would dull its own colours); just give it a bit more
@@ -342,7 +332,7 @@
   width: 26px;
   height: 26px;
   transform: translateX(-50%);
-  background: url("../../assets/themes/voxel-world/bottom-block.png") center / contain no-repeat;
+  background: url("../../assets/themes/voxel-world/bottom-block-clean.png") center / contain no-repeat;
   filter: drop-shadow(0 0 8px rgba(120,255,170,.5));
 }
 
@@ -366,9 +356,8 @@
   width: clamp(66px, 7.2vw, 84px);
   height: clamp(66px, 7.2vw, 84px);
   border: 0;
-  background: url("../../assets/themes/voxel-world/fab.png") center / contain no-repeat;
+  background: url("../../assets/themes/voxel-world/fab-clean.png") center / contain no-repeat;
   box-shadow: none;
-  mix-blend-mode: screen;
   filter: drop-shadow(0 4px 12px rgba(0,12,14,.5)) drop-shadow(0 0 14px rgba(90,230,245,.45));
 }
 
