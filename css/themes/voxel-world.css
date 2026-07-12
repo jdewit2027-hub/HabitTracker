@@ -7,9 +7,10 @@
    ========================================================================== */
 
 [data-theme="voxel-world"] {
-  --theme-bg: #06231f;
-  --theme-bg-image: url("../../assets/themes/voxel-world/bg.svg");
-  --theme-bg-overlay: linear-gradient(180deg, rgba(2,20,20,.04), rgba(2,18,20,.22) 58%, rgba(1,12,14,.5));
+  --theme-bg: #0a2622;
+  /* Image 1 (Minecraft-shaders render) used directly as the background. */
+  --theme-bg-image: url("../../assets/themes/voxel-world/background.webp");
+  --theme-bg-overlay: linear-gradient(180deg, rgba(3,20,20,.18), rgba(2,20,22,.32) 52%, rgba(1,14,16,.6));
   --theme-texture: none;
   --theme-surface: #073332;
   --theme-surface-raised: #0B4A45;
@@ -59,7 +60,7 @@
   --art-glow: drop-shadow(0 3px 8px rgba(0,10,12,.55));
 
   --panel-texture: none;
-  --panel-fill: linear-gradient(180deg, rgba(9,52,48,.6), rgba(3,28,29,.7));
+  --panel-fill: linear-gradient(180deg, rgba(9,50,46,.62), rgba(3,28,30,.74));
   --panel-border: 2px solid #9BF7C4;
   --panel-radius: 0px;
   --panel-clip: var(--voxel-clip);
@@ -130,8 +131,8 @@
 [data-theme="voxel-world"] .habit-card,
 [data-theme="voxel-world"] .empty-state,
 [data-theme="voxel-world"] .modal {
-  -webkit-backdrop-filter: blur(3px) saturate(1.1);
-  backdrop-filter: blur(3px) saturate(1.1);
+  -webkit-backdrop-filter: blur(7px) saturate(1.25);
+  backdrop-filter: blur(7px) saturate(1.25);
   filter: drop-shadow(0 6px 16px rgba(0,10,12,.5)) drop-shadow(0 0 9px rgba(120,250,180,.32));
 }
 
