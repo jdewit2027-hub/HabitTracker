@@ -1,5 +1,5 @@
 /* Habit RPG service worker — cache-first with network fallback */
-var CACHE_NAME = 'habit-rpg-cache-v19';
+var CACHE_NAME = 'habit-rpg-cache-v20';
 
 var THEMES = [
   'voxel-world', 'blue-ember', 'abyssal-athlete', 'midnight-virtuoso',
@@ -36,7 +36,8 @@ THEMES.forEach(function (theme) {
    plus the pixel font, in addition to the shared per-theme SVGs above. */
 [
   'background', 'steve', 'tree', 'hourglass', 'monument', 'grass-block',
-  'diamond', 'xp', 'sword', 'book', 'trophy', 'bottom-block', 'badge', 'fab'
+  'diamond', 'xp', 'sword', 'book', 'trophy', 'bottom-block', 'badge', 'fab',
+  'backpack'
 ].forEach(function (part) {
   CORE_ASSETS.push('./assets/themes/voxel-world/' + part + '.png');
 });

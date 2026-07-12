@@ -62,7 +62,7 @@
   --art-sigil: url("../../assets/themes/voxel-world/tree.png");
   --art-quote: url("../../assets/themes/voxel-world/hourglass.png");
   --art-saying: url("../../assets/themes/voxel-world/monument.png");
-  --art-empty: url("../../assets/themes/voxel-world/empty.svg");
+  --art-empty: url("../../assets/themes/voxel-world/backpack.png");
   --art-stat-completed: url("../../assets/themes/voxel-world/grass-block.png");
   --art-stat-level: url("../../assets/themes/voxel-world/diamond.png");
   --art-stat-xp: url("../../assets/themes/voxel-world/xp.png");
@@ -276,6 +276,15 @@
 [data-theme="voxel-world"] .stat-icon,
 [data-theme="voxel-world"] .empty-state::after {
   mix-blend-mode: lighten;
+}
+
+/* The backpack render's dark field is cut to transparency, so it needs no
+   blend (which would dull its own colours); just give it a bit more
+   presence in the empty quest panel, matching the mockup. Voxel-scoped —
+   other themes keep the shared sizing. */
+[data-theme="voxel-world"] .empty-art {
+  width: clamp(92px, 23vw, 118px);
+  height: clamp(92px, 23vw, 118px);
 }
 
 /* ---------- stats ---------- */
