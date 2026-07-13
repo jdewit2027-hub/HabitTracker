@@ -125,6 +125,9 @@
     $('profileChooserHint').textContent = profiles.length
       ? 'Your habits, XP, streaks, and theme stay private to your profile.'
       : 'Your current tracker data will be safely moved into this first profile.';
+    $('profileCreateHint').textContent = profiles.length
+      ? 'This person gets separate habits, XP, streaks, identity, and theme.'
+      : 'Your current habits, XP, streaks, identity, and theme will be safely moved into this profile.';
     $('backFromCreateBtn').hidden = !profiles.length;
     if (!profiles.length) setAuthView('create');
   }
