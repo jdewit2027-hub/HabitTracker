@@ -6,7 +6,9 @@
 (function () {
   'use strict';
 
-  var ACTIVE_THEME_KEY = 'habitRpg.activeTheme.v1';
+  var ACTIVE_THEME_KEY = window.HabitProfiles
+    ? window.HabitProfiles.getThemeKey()
+    : 'habitRpg.activeTheme.v1';
   var DB_NAME = 'habitRpgThemes';
   var DB_VERSION = 1;
   var STORE_NAME = 'customThemes';

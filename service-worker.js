@@ -1,5 +1,5 @@
 /* Habit RPG service worker — cache-first with network fallback */
-var CACHE_NAME = 'habit-rpg-cache-v25';
+var CACHE_NAME = 'habit-rpg-cache-v27';
 
 var THEMES = [
   'voxel-world', 'blue-ember', 'abyssal-athlete', 'midnight-virtuoso',
@@ -18,6 +18,7 @@ var CORE_ASSETS = [
   './manifest.json',
   './css/app.css',
   './css/themes/shared-theme-layout.css',
+  './js/profile-manager.js',
   './js/theme-manager.js',
   './js/app.js',
   './icons/icon-192.png',
@@ -77,12 +78,6 @@ self.addEventListener('activate', function (event) {
         );
       })
       .then(function () { return self.clients.claim(); })
-      .then(function () { return self.clients.matchAll({ type: 'window' }); })
-      .then(function (clients) {
-        return Promise.all(clients.map(function (client) {
-          return client.navigate(client.url);
-        }));
-      })
   );
 });
 

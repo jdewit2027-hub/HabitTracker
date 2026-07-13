@@ -168,6 +168,19 @@ html[data-theme="voxel-world"] body::after {
 [data-theme="voxel-world"] .theme-shortcut-label,
 [data-theme="voxel-world"] .theme-badge { display: none; }
 
+[data-theme="voxel-world"] .profile-shortcut {
+  width: 42px;
+  min-width: 42px;
+  height: 42px;
+  padding: 4px;
+  border-color: rgba(140,247,166,.7);
+  background: rgba(3,28,27,.84);
+  box-shadow: 0 0 12px rgba(120,255,170,.35), inset 0 0 10px rgba(80,220,180,.14);
+}
+
+[data-theme="voxel-world"] .profile-shortcut-avatar { width: 32px; height: 32px; }
+[data-theme="voxel-world"] .profile-shortcut-name { display: none; }
+
 /* ---------- glass panels: sharp background, soft bloom ---------- */
 
 [data-theme="voxel-world"] .card,

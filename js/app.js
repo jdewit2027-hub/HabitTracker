@@ -1,11 +1,13 @@
 /* ==========================================================================
    Habit RPG — app engine
-   Vanilla JS, localStorage only. No presets, no backend.
+   Vanilla JS, localStorage only. Profile manager supplies an isolated key.
    ========================================================================== */
 (function () {
   'use strict';
 
-  var STORAGE_KEY = 'habitRpg.state.v1';
+  var STORAGE_KEY = window.HabitProfiles
+    ? window.HabitProfiles.getStateKey()
+    : 'habitRpg.state.v1';
 
   /* Default XP per frequency (project game math) */
   var XP_DEFAULTS = { daily: 10, weekly: 35, monthly: 100 };
